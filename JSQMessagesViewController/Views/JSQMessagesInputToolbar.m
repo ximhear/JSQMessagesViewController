@@ -50,6 +50,8 @@ static void * kJSQMessagesInputToolbarKeyValueObservingContext = &kJSQMessagesIn
 
 - (void)awakeFromNib
 {
+    GZLogFunc0();
+    
     [super awakeFromNib];
     [self setTranslatesAutoresizingMaskIntoConstraints:NO];
     
@@ -107,8 +109,12 @@ static void * kJSQMessagesInputToolbarKeyValueObservingContext = &kJSQMessagesIn
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
+    GZLogFunc1(keyPath);
+    GZLogFunc1(change);
+    
     if (context == kJSQMessagesInputToolbarKeyValueObservingContext) {
         if (object == self.contentView) {
+            GZLogFunc0();
             
             if ([keyPath isEqualToString:NSStringFromSelector(@selector(leftBarButtonItem))]) {
                 

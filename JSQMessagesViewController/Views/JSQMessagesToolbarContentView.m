@@ -56,6 +56,8 @@ const CGFloat kJSQMessagesToolbarContentViewHorizontalSpacingDefault = 4.0f;
 
 - (void)awakeFromNib
 {
+    GZLogFunc0();
+    
     [super awakeFromNib];
     
     [self setTranslatesAutoresizingMaskIntoConstraints:NO];

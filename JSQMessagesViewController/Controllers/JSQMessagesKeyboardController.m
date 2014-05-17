@@ -188,6 +188,8 @@ typedef void (^JSQAnimationCompletionBlock)(BOOL finished);
 
 - (void)jsq_handleKeyboardNotification:(NSNotification *)notification completion:(JSQAnimationCompletionBlock)completion
 {
+    GZLogFunc0();
+    
     NSDictionary *userInfo = [notification userInfo];
     
     CGRect keyboardEndFrame = [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
@@ -229,6 +231,7 @@ typedef void (^JSQAnimationCompletionBlock)(BOOL finished);
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if (context == kJSQMessagesKeyboardControllerKeyValueObservingContext) {
+        GZLogFunc0();
         
         if (object == self.keyboardView && [keyPath isEqualToString:NSStringFromSelector(@selector(frame))]) {
             
@@ -261,6 +264,8 @@ typedef void (^JSQAnimationCompletionBlock)(BOOL finished);
 
 - (void)jsq_handlePanGestureRecognizer:(UIPanGestureRecognizer *)pan
 {
+    GZLogFunc0();
+    
     CGPoint touch = [pan locationInView:self.contextView];
     
     //  system keyboard is added to a new UIWindow, need to operate in window coordinates

@@ -109,6 +109,8 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
  */
 - (void)viewDidLoad
 {
+    GZLogFunc0();
+    
     [super viewDidLoad];
     
     self.title = @"JSQMessages";

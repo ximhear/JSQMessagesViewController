@@ -224,6 +224,7 @@
 		88D1B0C8190604AF00AFE162 /* JSQMessagesTypingIndicatorFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JSQMessagesTypingIndicatorFooterView.xib; sourceTree = "<group>"; };
 		88D1B0CA190606F100AFE162 /* typing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = typing.png; sourceTree = "<group>"; };
 		88D1B0CB190606F100AFE162 /* typing@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "typing@2x.png"; sourceTree = "<group>"; };
+		8C43D2CF19273C8900DF3EC0 /* GZLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GZLog.h; sourceTree = "<group>"; };
 		A0F1B1EFE54F44FEA6C4F786 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -412,6 +413,7 @@
 		885D592018CBD13D00D77BB3 = {
 			isa = PBXGroup;
 			children = (
+				8C43D2CF19273C8900DF3EC0 /* GZLog.h */,
 				8816A64618E9250400111919 /* JSQMessagesViewController */,
 				885D593218CBD13D00D77BB3 /* JSQMessagesDemo */,
 				885D595418CBD13D00D77BB3 /* JSQMessagesTests */,

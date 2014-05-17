@@ -189,6 +189,8 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
 
 - (void)viewDidLoad
 {
+    GZLogFunc0();
+    
     [super viewDidLoad];
     [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([JSQMessagesViewController class])
                                   owner:self
@@ -604,10 +606,13 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
 
 - (void)keyboardDidChangeFrame:(CGRect)keyboardFrame
 {
+    GZLogFunc0();
+    
     CGFloat heightFromBottom = CGRectGetHeight(self.collectionView.frame) - CGRectGetMinY(keyboardFrame);
     
     heightFromBottom = MAX(0.0f, heightFromBottom + self.statusBarChangeInHeight);
     
+    GZLogFunc(@"heightFromBottom : %f", heightFromBottom);
     [self jsq_setToolbarBottomLayoutGuideConstant:heightFromBottom];
 }
 
