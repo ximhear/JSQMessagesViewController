@@ -110,8 +110,8 @@
 
 - (void)headerView:(JSQMessagesLoadEarlierHeaderView *)headerView didPressLoadButton:(UIButton *)sender
 {
-    if ([self.delegate respondsToSelector:@selector(collectionView:header:didTapLoadEarlierMessagesButton:)]) {
-        [self.delegate collectionView:self header:headerView didTapLoadEarlierMessagesButton:sender];
+    if ([self.delegateLayout respondsToSelector:@selector(collectionView:header:didTapLoadEarlierMessagesButton:)]) {
+        [self.delegateLayout collectionView:self header:headerView didTapLoadEarlierMessagesButton:sender];
     }
 }
 
