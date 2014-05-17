@@ -264,7 +264,7 @@ typedef void (^JSQAnimationCompletionBlock)(BOOL finished);
 
 - (void)jsq_handlePanGestureRecognizer:(UIPanGestureRecognizer *)pan
 {
-    GZLogFunc0();
+//    GZLogFunc0();
     
     CGPoint touch = [pan locationInView:self.contextView];
     

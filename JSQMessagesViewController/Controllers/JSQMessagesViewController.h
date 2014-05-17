@@ -115,6 +115,8 @@
  */
 @property (assign, nonatomic) BOOL showLoadEarlierMessagesHeader;
 
+@property(nonatomic, weak) IBOutlet UIView* bottomToolbarView;
+
 #pragma mark - Class methods
 
 /**
