@@ -219,12 +219,14 @@ const CGFloat kJSQMessagesCollectionViewCellLabelHeightDefault = 20.0f;
 
 - (void)invalidateLayout
 {
+//    GZLogFunc0();
     [self.messageBubbleSizes removeAllObjects];
     [super invalidateLayout];
 }
 
 - (void)prepareLayout
 {
+//    GZLogFunc0();
     [super prepareLayout];
     
     if (self.springinessEnabled) {
@@ -243,6 +245,7 @@ const CGFloat kJSQMessagesCollectionViewCellLabelHeightDefault = 20.0f;
 
 - (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect
 {
+//    GZLogFunc0();
     NSArray *attributes;
     
     if (self.springinessEnabled) {
@@ -261,6 +264,7 @@ const CGFloat kJSQMessagesCollectionViewCellLabelHeightDefault = 20.0f;
 
 - (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    GZLogFunc0();
     JSQMessagesCollectionViewLayoutAttributes *customAttributes = (JSQMessagesCollectionViewLayoutAttributes *)[super layoutAttributesForItemAtIndexPath:indexPath];
     [self jsq_configureMessageCellLayoutAttributes:customAttributes];
     return customAttributes;
@@ -292,6 +296,7 @@ const CGFloat kJSQMessagesCollectionViewCellLabelHeightDefault = 20.0f;
 
 - (void)prepareForCollectionViewUpdates:(NSArray *)updateItems
 {
+    GZLogFunc0();
     [super prepareForCollectionViewUpdates:updateItems];
     
     if (self.springinessEnabled) {
@@ -322,6 +327,7 @@ const CGFloat kJSQMessagesCollectionViewCellLabelHeightDefault = 20.0f;
 
 - (CGSize)messageBubbleSizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+//    GZLogFunc0();
     NSValue *cachedSize = [self.messageBubbleSizes objectForKey:indexPath];
     if (cachedSize) {
         return [cachedSize CGSizeValue];
@@ -346,6 +352,12 @@ const CGFloat kJSQMessagesCollectionViewCellLabelHeightDefault = 20.0f;
     
     CGSize finalSize = CGSizeMake(stringSize.width, stringSize.height + verticalInsets);
     
+    if (self.selectedIndexPath != nil && [self.selectedIndexPath compare:indexPath] == NSOrderedSame) {
+        finalSize.height += 50; // gzonelee
+        GZLogFunc(@"new height : %f", finalSize.height);
+    }
+    GZLogFunc(@"new height : %f", finalSize.height);
+    
     [self.messageBubbleSizes setObject:[NSValue valueWithCGSize:finalSize] forKey:indexPath];
     
     return finalSize;
@@ -353,6 +365,7 @@ const CGFloat kJSQMessagesCollectionViewCellLabelHeightDefault = 20.0f;
 
 - (void)jsq_configureMessageCellLayoutAttributes:(JSQMessagesCollectionViewLayoutAttributes *)layoutAttributes
 {
+//    GZLogFunc0();
     NSIndexPath *indexPath = layoutAttributes.indexPath;
     
     CGSize messageBubbleSize = [self messageBubbleSizeForItemAtIndexPath:indexPath];
@@ -383,6 +396,13 @@ const CGFloat kJSQMessagesCollectionViewCellLabelHeightDefault = 20.0f;
     layoutAttributes.cellBottomLabelHeight = [self.collectionView.delegateLayout collectionView:self.collectionView
                                                                                    layout:self
                                                       heightForCellBottomLabelAtIndexPath:indexPath];
+    
+    if (self.selectedIndexPath != nil && [self.selectedIndexPath compare:indexPath] == NSOrderedSame) {
+        layoutAttributes.submenuViewHeight = 50;
+    }
+    else {
+        layoutAttributes.submenuViewHeight = 0;
+    }
 }
 
 - (CGFloat)jsq_messageBubbleTextContainerInsetsTotal

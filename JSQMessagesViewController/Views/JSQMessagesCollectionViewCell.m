@@ -33,7 +33,6 @@
 
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 
-@property (weak, nonatomic) IBOutlet UIView *messageBubbleContainerView;
 @property (weak, nonatomic) IBOutlet UIView *avatarContainerView;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *textViewTopVerticalSpaceConstraint;
@@ -49,6 +48,8 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *avatarContainerViewHeightContraint;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *messageBubbleLeftRightMarginConstraint;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *submenuViewHeightConstraint;
 
 @property (assign, nonatomic) UIEdgeInsets textViewFrameInsets;
 
@@ -165,6 +166,7 @@
 
 - (void)applyLayoutAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes
 {
+    GZLogFunc0();
     [super applyLayoutAttributes:layoutAttributes];
     
     JSQMessagesCollectionViewLayoutAttributes *customAttributes = (JSQMessagesCollectionViewLayoutAttributes *)layoutAttributes;
@@ -174,6 +176,8 @@
     self.textViewFrameInsets = customAttributes.textViewFrameInsets;
     self.textView.textContainerInset = customAttributes.textViewTextContainerInsets;
     self.cellTopLabelHeightContraint.constant = customAttributes.cellTopLabelHeight;
+    self.submenuViewHeightConstraint.constant = customAttributes.submenuViewHeight; // gzonelee
+    GZLogFunc(@"submenuViewHeightConstraint.constant : %f", self.submenuViewHeightConstraint.constant);
     self.messageBubbleTopLabelHeightContraint.constant = customAttributes.messageBubbleTopLabelHeight;
     self.cellBottomLabelHeightContraint.constant = customAttributes.cellBottomLabelHeight;
     

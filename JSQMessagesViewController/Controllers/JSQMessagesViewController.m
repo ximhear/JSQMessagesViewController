@@ -47,6 +47,9 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
                                          JSQMessagesCollectionViewCellDelegate,
                                          JSQMessagesKeyboardControllerDelegate,UICollectionViewDelegate,
                                          UITextViewDelegate>
+{
+    NSIndexPath* _selectedIndexPath;
+}
 
 @property (weak, nonatomic) IBOutlet JSQMessagesCollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet JSQMessagesInputToolbar *inputToolbar;
@@ -138,6 +141,8 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
                                                                           contextView:self.view
                                                                  panGestureRecognizer:self.collectionView.panGestureRecognizer
                                                                              delegate:self];
+    
+//    _selectedIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
 }
 
 - (void)dealloc
@@ -147,6 +152,7 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
     
     _collectionView.dataSource = nil;
     _collectionView.delegate = nil;
+    _collectionView.delegateLayout = nil;
     _collectionView = nil;
     _inputToolbar = nil;
     
@@ -243,7 +249,7 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    NSLog(@"MEMORY WARNING: %s", __PRETTY_FUNCTION__);
+    GZLogFunc(@"MEMORY WARNING: %s", __PRETTY_FUNCTION__);
 }
 
 #pragma mark - View rotation
@@ -278,6 +284,7 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
 
 - (void)finishSendingMessage
 {
+    GZLogFunc0();
     UITextView *textView = self.inputToolbar.contentView.textView;
     textView.text = nil;
     
@@ -295,6 +302,7 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
 
 - (void)jsq_finishSendingOrReceivingMessage
 {
+    GZLogFunc0();
     self.showTypingIndicator = NO;
     
     [self.collectionView reloadData];
@@ -366,6 +374,21 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
     return 1;
 }
 
+-(void)handleTap:(id)sender
+{
+    GZLogFunc1([sender view]);
+    
+    UICollectionViewCell* cell = [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:[[sender view] tag] inSection:0]];
+    GZLogFunc1(cell);
+    if (_selectedIndexPath != nil && [[sender view] tag] == _selectedIndexPath.row) {
+        return;
+    }
+    _selectedIndexPath = [NSIndexPath indexPathForRow:[[sender view] tag] inSection:0];
+    self.collectionView.collectionViewLayout.selectedIndexPath = _selectedIndexPath;
+    [self.collectionView reloadData];
+    [self.collectionView setNeedsUpdateConstraints];
+}
+
 - (UICollectionViewCell *)collectionView:(JSQMessagesCollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     GZLogFunc0();
@@ -384,6 +407,17 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
     
     NSString *messageText = [messageData text];
     NSAssert(messageText, @"ERROR: messageData text must not be nil: %s", __PRETTY_FUNCTION__);
+    
+    GZLogFunc1([cell.messageBubbleContainerView gestureRecognizers]);
+    for (UIGestureRecognizer* gesture in [cell.messageBubbleContainerView gestureRecognizers]) {
+        [cell.messageBubbleContainerView removeGestureRecognizer:gesture];
+    }
+    cell.messageBubbleContainerView.tag = indexPath.row;
+    cell.indexPath = indexPath;
+    cell.selectedIndexPath = _selectedIndexPath;
+    
+    UIGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
+    [cell.messageBubbleContainerView addGestureRecognizer:tapGesture];
     
     cell.textView.text = messageText;
     cell.messageBubbleImageView = [collectionView.dataSource collectionView:collectionView bubbleImageViewForItemAtIndexPath:indexPath];
@@ -481,6 +515,7 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
 - (CGSize)collectionView:(JSQMessagesCollectionView *)collectionView
                   layout:(JSQMessagesCollectionViewFlowLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+//    GZLogFunc0();
     CGSize bubbleSize = [collectionViewLayout messageBubbleSizeForItemAtIndexPath:indexPath];
     
     CGFloat cellHeight = bubbleSize.height;
@@ -526,6 +561,7 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
 
 - (void)messagesInputToolbar:(JSQMessagesInputToolbar *)toolbar didPressLeftBarButton:(UIButton *)sender
 {
+    GZLogFunc0();
     if (toolbar.sendButtonOnRight) {
         [self didPressAccessoryButton:sender];
     }
@@ -539,6 +575,7 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
 
 - (void)messagesInputToolbar:(JSQMessagesInputToolbar *)toolbar didPressRightBarButton:(UIButton *)sender
 {
+    GZLogFunc0();
     if (toolbar.sendButtonOnRight) {
         [self didPressSendButton:sender
                  withMessageText:[self jsq_currentlyComposedMessageText]

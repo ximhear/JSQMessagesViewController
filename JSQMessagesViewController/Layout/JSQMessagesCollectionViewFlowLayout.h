@@ -153,6 +153,8 @@ FOUNDATION_EXPORT const CGFloat kJSQMessagesCollectionViewCellLabelHeightDefault
  */
 @property (assign, nonatomic) CGSize outgoingAvatarViewSize;
 
+@property (strong, nonatomic) NSIndexPath* selectedIndexPath;
+
 /**
  *  Computes and returns the size of the `messageBubbleImageView` property of a `JSQMessagesCollectionViewCell` 
  *  to display its entire message contents. Note, this is *not* the entire cell, but only its message bubble.

@@ -98,6 +98,7 @@
         || (int)layoutAttributes.messageBubbleLeftRightMargin != (int)self.messageBubbleLeftRightMargin
         || (int)layoutAttributes.cellTopLabelHeight != (int)self.cellTopLabelHeight
         || (int)layoutAttributes.messageBubbleTopLabelHeight != (int)self.messageBubbleTopLabelHeight
+        || (int)layoutAttributes.submenuViewHeight != (int)self.submenuViewHeight // gzonelee
         || (int)layoutAttributes.cellBottomLabelHeight != (int)self.cellBottomLabelHeight) {
         return NO;
     }
@@ -127,6 +128,7 @@
     copy.cellTopLabelHeight = self.cellTopLabelHeight;
     copy.messageBubbleTopLabelHeight = self.messageBubbleTopLabelHeight;
     copy.cellBottomLabelHeight = self.cellBottomLabelHeight;
+    copy.submenuViewHeight = self.submenuViewHeight; // gzonelee
     return copy;
 }
 

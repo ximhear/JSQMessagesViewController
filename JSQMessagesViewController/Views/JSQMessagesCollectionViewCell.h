@@ -102,6 +102,11 @@
  */
 @property (weak, nonatomic, readonly) UITapGestureRecognizer *tapGestureRecognizer;
 
+@property (weak, nonatomic) IBOutlet UIView *messageBubbleContainerView;
+
+@property(strong, nonatomic) NSIndexPath* indexPath;
+@property(strong, nonatomic) NSIndexPath* selectedIndexPath;
+
 #pragma mark - Class methods
 
 /**

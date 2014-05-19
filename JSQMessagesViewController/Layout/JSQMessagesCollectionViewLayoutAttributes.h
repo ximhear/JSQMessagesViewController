@@ -107,4 +107,6 @@
  */
 @property (assign, nonatomic) CGFloat cellBottomLabelHeight;
 
+@property (assign, nonatomic) CGFloat submenuViewHeight;
+
 @end
