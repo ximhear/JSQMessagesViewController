@@ -22,7 +22,7 @@
 
 - (void)jsq_pinSubview:(UIView *)subview toEdge:(NSLayoutAttribute)attribute
 {
-    GZLogFunc0();
+//    GZLogFunc0();
     
     [self addConstraint:[NSLayoutConstraint constraintWithItem:self
                                                      attribute:attribute
@@ -35,7 +35,7 @@
 
 - (void)jsq_pinAllEdgesOfSubview:(UIView *)subview
 {
-    GZLogFunc0();
+//    GZLogFunc0();
     
     [self jsq_pinSubview:subview toEdge:NSLayoutAttributeBottom];
     [self jsq_pinSubview:subview toEdge:NSLayoutAttributeTop];

@@ -37,7 +37,7 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
      */
     self.messages = [[NSMutableArray alloc] initWithObjects:
                      [[JSQMessage alloc] initWithText:@"AAA" sender:self.sender date:[NSDate distantPast]],
-                     [[JSQMessage alloc] initWithText:@"BBB" sender:self.sender date:[NSDate distantPast]],
+//                     [[JSQMessage alloc] initWithText:@"BBB" sender:self.sender date:[NSDate distantPast]],
 //                     [[JSQMessage alloc] initWithText:@"BBB" sender:kJSQDemoAvatarNameWoz date:[NSDate distantPast]],
                      nil];
     

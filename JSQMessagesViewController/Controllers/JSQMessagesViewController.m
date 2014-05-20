@@ -297,6 +297,7 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
 
 - (void)finishReceivingMessage
 {
+    GZLogFunc0();
     [self jsq_finishSendingOrReceivingMessage];
 }
 
@@ -321,6 +322,7 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
     NSInteger items = [self.collectionView numberOfItemsInSection:0];
     
     if (items > 0) {
+        GZLogFunc1(self.collectionView );
         [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:items - 1 inSection:0]
                                     atScrollPosition:UICollectionViewScrollPositionTop
                                             animated:animated];
@@ -389,6 +391,7 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
     if (_selectedIndexPath != nil && [[sender view] tag] == _selectedIndexPath.row) {
         return;
     }
+    NSIndexPath* oldIndexPath = _selectedIndexPath;
     _selectedIndexPath = [NSIndexPath indexPathForRow:[[sender view] tag] inSection:0];
     self.collectionView.collectionViewLayout.selectedIndexPath = _selectedIndexPath;
     
@@ -399,7 +402,14 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
 //    JSQMessagesCollectionViewCell *cell = [_collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:_selectedIndexPath];
 //    cell.submenuViewHeightConstraint.constant = 10;
     
-    [self.collectionView reloadData];
+    NSMutableArray* indexPaths = [NSMutableArray array];
+    if (oldIndexPath != nil) {
+        [indexPaths addObject:oldIndexPath];
+    }
+    [indexPaths addObject:_selectedIndexPath];
+    
+    [self.collectionView reloadItemsAtIndexPaths:indexPaths];
+//    [self.collectionView reloadData];
 }
 
 - (UICollectionViewCell *)collectionView:(JSQMessagesCollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -420,7 +430,8 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
     
     NSString *messageText = [messageData text];
     NSAssert(messageText, @"ERROR: messageData text must not be nil: %s", __PRETTY_FUNCTION__);
-    
+
+    GZLogFunc1(self.collectionView);
     GZLogFunc1([cell.messageBubbleContainerView gestureRecognizers]);
     for (UIGestureRecognizer* gesture in [cell.messageBubbleContainerView gestureRecognizers]) {
         [cell.messageBubbleContainerView removeGestureRecognizer:gesture];
@@ -465,15 +476,15 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
     
 //    cell.textView.dataDetectorTypes = UIDataDetectorTypeAll;
     
-    if (_selectedIndexPath != nil && [_selectedIndexPath compare:indexPath] == NSOrderedSame) {
-        cell.submenuViewHeightConstraint.constant = 50; // gzonelee
-        [UIView animateWithDuration:1 animations:^{
-            [cell.submenuView layoutIfNeeded];
-        }];
-    }
-    else {
-        cell.submenuViewHeightConstraint.constant = 0;
-    }
+//    if (_selectedIndexPath != nil && [_selectedIndexPath compare:indexPath] == NSOrderedSame) {
+//        cell.submenuViewHeightConstraint.constant = 50; // gzonelee
+//        [UIView animateWithDuration:1 animations:^{
+//            [cell.submenuView layoutIfNeeded];
+//        }];
+//    }
+//    else {
+//        cell.submenuViewHeightConstraint.constant = 0;
+//    }
 
     return cell;
 }
@@ -623,6 +634,8 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
 
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
+    GZLogFunc0();
+    
     [textView becomeFirstResponder];
     
     if (self.automaticallyScrollsToMostRecentMessage) {
@@ -683,7 +696,7 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
 {
     GZLogFunc0();
     
-    CGFloat heightFromBottom = CGRectGetHeight(self.collectionView.frame) - CGRectGetMinY(keyboardFrame);
+    CGFloat heightFromBottom = CGRectGetHeight(self.collectionView.frame) + 44 - CGRectGetMinY(keyboardFrame);
     
     heightFromBottom = MAX(0.0f, heightFromBottom + self.statusBarChangeInHeight);
     

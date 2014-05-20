@@ -403,12 +403,12 @@ const CGFloat kJSQMessagesCollectionViewCellLabelHeightDefault = 20.0f;
                                                       heightForCellBottomLabelAtIndexPath:indexPath];
     
     // gzonelee
-//    if (self.selectedIndexPath != nil && [self.selectedIndexPath compare:indexPath] == NSOrderedSame) {
-//        layoutAttributes.submenuViewHeight = 50;
-//    }
-//    else {
-//        layoutAttributes.submenuViewHeight = 0;
-//    }
+    if (self.selectedIndexPath != nil && [self.selectedIndexPath compare:indexPath] == NSOrderedSame) {
+        layoutAttributes.submenuViewHeight = 50;
+    }
+    else {
+        layoutAttributes.submenuViewHeight = 0;
+    }
 }
 
 - (CGFloat)jsq_messageBubbleTextContainerInsetsTotal
