@@ -350,7 +350,12 @@ const CGFloat kJSQMessagesCollectionViewCellLabelHeightDefault = 20.0f;
     
     CGFloat verticalInsets = self.messageBubbleTextViewTextContainerInsets.top + self.messageBubbleTextViewTextContainerInsets.bottom;
     
-    CGSize finalSize = CGSizeMake(stringSize.width, stringSize.height + verticalInsets);
+    CGFloat width = stringSize.width;
+    if (width < 238) {
+        width = 238; // gzonelee
+    }
+    
+    CGSize finalSize = CGSizeMake(width, stringSize.height + verticalInsets);
     
     if (self.selectedIndexPath != nil && [self.selectedIndexPath compare:indexPath] == NSOrderedSame) {
         finalSize.height += 50; // gzonelee
@@ -397,12 +402,13 @@ const CGFloat kJSQMessagesCollectionViewCellLabelHeightDefault = 20.0f;
                                                                                    layout:self
                                                       heightForCellBottomLabelAtIndexPath:indexPath];
     
-    if (self.selectedIndexPath != nil && [self.selectedIndexPath compare:indexPath] == NSOrderedSame) {
-        layoutAttributes.submenuViewHeight = 50;
-    }
-    else {
-        layoutAttributes.submenuViewHeight = 0;
-    }
+    // gzonelee
+//    if (self.selectedIndexPath != nil && [self.selectedIndexPath compare:indexPath] == NSOrderedSame) {
+//        layoutAttributes.submenuViewHeight = 50;
+//    }
+//    else {
+//        layoutAttributes.submenuViewHeight = 0;
+//    }
 }
 
 - (CGFloat)jsq_messageBubbleTextContainerInsetsTotal

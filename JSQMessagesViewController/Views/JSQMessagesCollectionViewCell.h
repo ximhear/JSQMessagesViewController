@@ -106,6 +106,13 @@
 
 @property(strong, nonatomic) NSIndexPath* indexPath;
 @property(strong, nonatomic) NSIndexPath* selectedIndexPath;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *submenuViewHeightConstraint;
+@property (weak, nonatomic) IBOutlet UIView *submenuView;
+@property (weak, nonatomic) IBOutlet UIButton *submenuBtn1;
+@property (weak, nonatomic) IBOutlet UIButton *submenuBtn2;
+@property (weak, nonatomic) IBOutlet UIButton *submenuBtn3;
+@property (weak, nonatomic) IBOutlet UIButton *submenuBtn4;
+
 
 #pragma mark - Class methods
 

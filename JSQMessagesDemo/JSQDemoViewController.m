@@ -389,11 +389,43 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
     
     cell.textView.linkTextAttributes = @{ NSForegroundColorAttributeName : cell.textView.textColor,
                                           NSUnderlineStyleAttributeName : @(NSUnderlineStyleSingle | NSUnderlinePatternSolid) };
+
+    if ([self isSelectedIndexPath:indexPath] == YES) {
+        [cell.submenuBtn1 removeTarget:nil action:NULL forControlEvents:UIControlEventTouchUpInside];
+        [cell.submenuBtn2 removeTarget:nil action:NULL forControlEvents:UIControlEventTouchUpInside];
+        [cell.submenuBtn3 removeTarget:nil action:NULL forControlEvents:UIControlEventTouchUpInside];
+        [cell.submenuBtn4 removeTarget:nil action:NULL forControlEvents:UIControlEventTouchUpInside];
+        
+        [cell.submenuBtn1 addTarget:self action:@selector(cellPlay:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.submenuBtn2 addTarget:self action:@selector(cellEdit:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.submenuBtn3 addTarget:self action:@selector(cellExpand:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.submenuBtn4 addTarget:self action:@selector(cellSimilarSentence:) forControlEvents:UIControlEventTouchUpInside];
+    }
     
     return cell;
 }
 
 
+#pragma mark - IBAction
+-(IBAction)cellPlay:(id)sender
+{
+    GZLogFunc0();
+}
+
+-(IBAction)cellEdit:(id)sender
+{
+    GZLogFunc0();
+}
+
+-(IBAction)cellExpand:(id)sender
+{
+    GZLogFunc0();
+}
+
+-(IBAction)cellSimilarSentence:(id)sender
+{
+    GZLogFunc0();
+}
 
 #pragma mark - JSQMessages collection view flow layout delegate
 

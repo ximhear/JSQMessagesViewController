@@ -193,4 +193,6 @@
  */
 - (void)scrollToBottomAnimated:(BOOL)animated;
 
+-(BOOL)isSelectedIndexPath:(NSIndexPath*)indexPath;
+
 @end

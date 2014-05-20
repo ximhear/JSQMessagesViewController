@@ -374,19 +374,32 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
     return 1;
 }
 
+-(BOOL)isSelectedIndexPath:(NSIndexPath*)indexPath
+{
+    if (_selectedIndexPath != nil && [_selectedIndexPath compare:indexPath] == NSOrderedSame) {
+        return YES;
+    }
+    return NO;
+}
+
 -(void)handleTap:(id)sender
 {
     GZLogFunc1([sender view]);
     
-    UICollectionViewCell* cell = [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:[[sender view] tag] inSection:0]];
-    GZLogFunc1(cell);
     if (_selectedIndexPath != nil && [[sender view] tag] == _selectedIndexPath.row) {
         return;
     }
     _selectedIndexPath = [NSIndexPath indexPathForRow:[[sender view] tag] inSection:0];
     self.collectionView.collectionViewLayout.selectedIndexPath = _selectedIndexPath;
+    
+//    id<JSQMessageData> messageData = [_collectionView.dataSource collectionView:_collectionView messageDataForItemAtIndexPath:_selectedIndexPath];
+//    NSString *messageSender = [messageData sender];
+//    BOOL isOutgoingMessage = [messageSender isEqualToString:self.sender];
+//    NSString *cellIdentifier = isOutgoingMessage ? self.outgoingCellIdentifier : self.incomingCellIdentifier;
+//    JSQMessagesCollectionViewCell *cell = [_collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:_selectedIndexPath];
+//    cell.submenuViewHeightConstraint.constant = 10;
+    
     [self.collectionView reloadData];
-    [self.collectionView setNeedsUpdateConstraints];
 }
 
 - (UICollectionViewCell *)collectionView:(JSQMessagesCollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -450,8 +463,18 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
         cell.messageBubbleTopLabel.textInsets = UIEdgeInsetsMake(0.0f, bubbleTopLabelInset, 0.0f, 0.0f);
     }
     
-    cell.textView.dataDetectorTypes = UIDataDetectorTypeAll;
+//    cell.textView.dataDetectorTypes = UIDataDetectorTypeAll;
     
+    if (_selectedIndexPath != nil && [_selectedIndexPath compare:indexPath] == NSOrderedSame) {
+        cell.submenuViewHeightConstraint.constant = 50; // gzonelee
+        [UIView animateWithDuration:1 animations:^{
+            [cell.submenuView layoutIfNeeded];
+        }];
+    }
+    else {
+        cell.submenuViewHeightConstraint.constant = 0;
+    }
+
     return cell;
 }
 
@@ -523,6 +546,7 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
     cellHeight += [self collectionView:collectionView layout:collectionViewLayout heightForMessageBubbleTopLabelAtIndexPath:indexPath];
     cellHeight += [self collectionView:collectionView layout:collectionViewLayout heightForCellBottomLabelAtIndexPath:indexPath];
     
+    GZLogFunc(@"cellHeight : %f", cellHeight);
     return CGSizeMake(collectionViewLayout.itemWidth, cellHeight);
 }
 
