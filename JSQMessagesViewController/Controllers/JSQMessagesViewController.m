@@ -118,6 +118,7 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
     self.collectionView.delegateLayout = self;
+    self.edgesForExtendedLayout = UIRectEdgeNone; // gzonelee
     
     self.inputToolbar.delegate = self;
     self.inputToolbar.contentView.textView.placeHolder = NSLocalizedString(@"New Message", @"Placeholder text for the message input text view");
@@ -322,7 +323,7 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
     NSInteger items = [self.collectionView numberOfItemsInSection:0];
     
     if (items > 0) {
-        GZLogFunc1(self.collectionView );
+        GZLogFunc1([NSIndexPath indexPathForItem:items - 1 inSection:0]);
         [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:items - 1 inSection:0]
                                     atScrollPosition:UICollectionViewScrollPositionTop
                                             animated:animated];
@@ -395,13 +396,6 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
     _selectedIndexPath = [NSIndexPath indexPathForRow:[[sender view] tag] inSection:0];
     self.collectionView.collectionViewLayout.selectedIndexPath = _selectedIndexPath;
     
-//    id<JSQMessageData> messageData = [_collectionView.dataSource collectionView:_collectionView messageDataForItemAtIndexPath:_selectedIndexPath];
-//    NSString *messageSender = [messageData sender];
-//    BOOL isOutgoingMessage = [messageSender isEqualToString:self.sender];
-//    NSString *cellIdentifier = isOutgoingMessage ? self.outgoingCellIdentifier : self.incomingCellIdentifier;
-//    JSQMessagesCollectionViewCell *cell = [_collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:_selectedIndexPath];
-//    cell.submenuViewHeightConstraint.constant = 10;
-    
     NSMutableArray* indexPaths = [NSMutableArray array];
     if (oldIndexPath != nil) {
         [indexPaths addObject:oldIndexPath];
@@ -409,7 +403,7 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
     [indexPaths addObject:_selectedIndexPath];
     
     [self.collectionView reloadItemsAtIndexPaths:indexPaths];
-//    [self.collectionView reloadData];
+    [self.collectionView scrollToItemAtIndexPath:_selectedIndexPath atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:YES];
 }
 
 - (UICollectionViewCell *)collectionView:(JSQMessagesCollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -696,7 +690,7 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
 {
     GZLogFunc0();
     
-    CGFloat heightFromBottom = CGRectGetHeight(self.collectionView.frame) + 44 - CGRectGetMinY(keyboardFrame);
+    CGFloat heightFromBottom = CGRectGetHeight(self.collectionView.frame) - CGRectGetMinY(keyboardFrame);
     
     heightFromBottom = MAX(0.0f, heightFromBottom + self.statusBarChangeInHeight);
     
@@ -798,6 +792,7 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
 
 - (void)jsq_scrollComposerTextViewToBottomAnimated:(BOOL)animated
 {
+    GZLogFunc0();
     UITextView *textView = self.inputToolbar.contentView.textView;
     CGPoint contentOffsetToShowLastLine = CGPointMake(0.0f, textView.contentSize.height - CGRectGetHeight(textView.bounds));
     
@@ -819,12 +814,14 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
 
 - (void)jsq_updateCollectionViewInsets
 {
+    GZLogFunc0();
     [self jsq_setCollectionViewInsetsTopValue:self.topLayoutGuide.length
                                   bottomValue:CGRectGetHeight(self.collectionView.frame) - CGRectGetMinY(self.inputToolbar.frame)];
 }
 
 - (void)jsq_setCollectionViewInsetsTopValue:(CGFloat)top bottomValue:(CGFloat)bottom
 {
+    GZLogFunc0();
     UIEdgeInsets insets = UIEdgeInsetsMake(top, 0.0f, bottom, 0.0f);
     self.collectionView.contentInset = insets;
     self.collectionView.scrollIndicatorInsets = insets;
