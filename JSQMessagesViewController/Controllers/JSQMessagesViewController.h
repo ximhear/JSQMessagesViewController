@@ -117,6 +117,9 @@
 
 @property(nonatomic, weak) IBOutlet UIView* bottomToolbarView;
 
+@property(nonatomic, strong) NSIndexPath* selectedIndexPath;
+
+
 #pragma mark - Class methods
 
 /**
@@ -194,5 +197,7 @@
 - (void)scrollToBottomAnimated:(BOOL)animated;
 
 -(BOOL)isSelectedIndexPath:(NSIndexPath*)indexPath;
+- (void)setTextToTextView:(NSString*)text;
+-(void)changeSelectedIndexPath:(NSIndexPath*)newPath;
 
 @end

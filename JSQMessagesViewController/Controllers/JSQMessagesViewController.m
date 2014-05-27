@@ -48,7 +48,6 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
                                          JSQMessagesKeyboardControllerDelegate,UICollectionViewDelegate,
                                          UITextViewDelegate>
 {
-    NSIndexPath* _selectedIndexPath;
 }
 
 @property (weak, nonatomic) IBOutlet JSQMessagesCollectionView *collectionView;
@@ -377,35 +376,6 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
     return 1;
 }
 
--(BOOL)isSelectedIndexPath:(NSIndexPath*)indexPath
-{
-    if (_selectedIndexPath != nil && [_selectedIndexPath compare:indexPath] == NSOrderedSame) {
-        return YES;
-    }
-    return NO;
-}
-
--(void)handleTap:(id)sender
-{
-    GZLogFunc1([sender view]);
-    
-    if (_selectedIndexPath != nil && [[sender view] tag] == _selectedIndexPath.row) {
-        return;
-    }
-    NSIndexPath* oldIndexPath = _selectedIndexPath;
-    _selectedIndexPath = [NSIndexPath indexPathForRow:[[sender view] tag] inSection:0];
-    self.collectionView.collectionViewLayout.selectedIndexPath = _selectedIndexPath;
-    
-    NSMutableArray* indexPaths = [NSMutableArray array];
-    if (oldIndexPath != nil) {
-        [indexPaths addObject:oldIndexPath];
-    }
-    [indexPaths addObject:_selectedIndexPath];
-    
-    [self.collectionView reloadItemsAtIndexPaths:indexPaths];
-    [self.collectionView scrollToItemAtIndexPath:_selectedIndexPath atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:YES];
-}
-
 - (UICollectionViewCell *)collectionView:(JSQMessagesCollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     GZLogFunc0();
@@ -424,8 +394,7 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
     
     NSString *messageText = [messageData text];
     NSAssert(messageText, @"ERROR: messageData text must not be nil: %s", __PRETTY_FUNCTION__);
-
-    GZLogFunc1(self.collectionView);
+    
     GZLogFunc1([cell.messageBubbleContainerView gestureRecognizers]);
     for (UIGestureRecognizer* gesture in [cell.messageBubbleContainerView gestureRecognizers]) {
         [cell.messageBubbleContainerView removeGestureRecognizer:gesture];
@@ -433,6 +402,7 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
     cell.messageBubbleContainerView.tag = indexPath.row;
     cell.indexPath = indexPath;
     cell.selectedIndexPath = _selectedIndexPath;
+    cell.favoriteBtn.tag = indexPath.row;
     
     UIGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
     [cell.messageBubbleContainerView addGestureRecognizer:tapGesture];
@@ -875,6 +845,56 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
                                                                           action:@selector(jsq_handleInteractivePopGestureRecognizer:)];
         }
     }
+}
+
+#pragma mark - gzonelee
+- (void)setTextToTextView:(NSString*)text
+{
+    GZLogFunc0();
+    UITextView *textView = self.inputToolbar.contentView.textView;
+    textView.text = text;
+    
+    [self.inputToolbar toggleSendButtonEnabled];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:UITextViewTextDidChangeNotification object:textView];
+    [textView becomeFirstResponder];
+}
+
+-(BOOL)isSelectedIndexPath:(NSIndexPath*)indexPath
+{
+    if (_selectedIndexPath != nil && [_selectedIndexPath compare:indexPath] == NSOrderedSame) {
+        return YES;
+    }
+    return NO;
+}
+
+-(void)changeSelectedIndexPath:(NSIndexPath*)newPath
+{
+    
+    NSIndexPath* oldIndexPath = _selectedIndexPath;
+    _selectedIndexPath = newPath;
+    
+    self.collectionView.collectionViewLayout.selectedIndexPath = _selectedIndexPath;
+    
+    NSMutableArray* indexPaths = [NSMutableArray array];
+    if (oldIndexPath != nil) {
+        [indexPaths addObject:oldIndexPath];
+    }
+    [indexPaths addObject:_selectedIndexPath];
+    
+    [self.collectionView reloadItemsAtIndexPaths:indexPaths];
+    [self.collectionView scrollToItemAtIndexPath:_selectedIndexPath atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:YES];
+}
+
+-(void)handleTap:(id)sender
+{
+    GZLogFunc1([sender view]);
+    
+    if (_selectedIndexPath != nil && [[sender view] tag] == _selectedIndexPath.row) {
+        return;
+    }
+    
+    [self changeSelectedIndexPath:[NSIndexPath indexPathForRow:[[sender view] tag] inSection:0]];
 }
 
 @end

@@ -115,7 +115,7 @@
     self.textView.showsHorizontalScrollIndicator = NO;
     self.textView.showsVerticalScrollIndicator = NO;
     self.textView.scrollEnabled = NO;
-    self.textView.backgroundColor = [UIColor clearColor];
+    self.textView.backgroundColor = [UIColor colorWithRed:1 green:0 blue:1 alpha:0.2];
     self.textView.contentInset = UIEdgeInsetsZero;
     self.textView.scrollIndicatorInsets = UIEdgeInsetsZero;
     self.textView.contentOffset = CGPointZero;

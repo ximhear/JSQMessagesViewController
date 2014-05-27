@@ -42,6 +42,11 @@
  */
 @property (copy, nonatomic) NSDate *date;
 
+// gzonelee
+@property (copy, nonatomic) NSString *sourceText;
+@property (copy, nonatomic) NSString *targetText;
+@property (assign, nonatomic) BOOL favorite;
+
 #pragma mark - Initialization
 
 /**

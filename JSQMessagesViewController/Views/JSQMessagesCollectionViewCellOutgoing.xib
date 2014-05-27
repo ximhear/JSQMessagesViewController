@@ -40,7 +40,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="260" translatesAutoresizingMaskIntoConstraints="NO" id="vLY-aM-0Dr" userLabel="TV">
-                                <rect key="frame" x="0.0" y="0.0" width="238" height="44"/>
+                                <rect key="frame" x="0.0" y="0.0" width="194" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -86,16 +86,29 @@
                                     <constraint firstAttribute="height" constant="50" id="pCp-oe-KKA"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yqF-Rj-NHS" userLabel="B(favorite)">
+                                <rect key="frame" x="202" y="11" width="22" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="22" id="9Dp-oi-Cjh"/>
+                                    <constraint firstAttribute="height" constant="22" id="rDk-SU-doz"/>
+                                </constraints>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="j9a-Nn-IM1" firstAttribute="top" secondItem="vLY-aM-0Dr" secondAttribute="bottom" id="3zD-fS-yDb"/>
                             <constraint firstItem="vLY-aM-0Dr" firstAttribute="leading" secondItem="2zh-vR-QJW" secondAttribute="leading" id="7rI-Nc-AK3"/>
-                            <constraint firstItem="vLY-aM-0Dr" firstAttribute="width" secondItem="j9a-Nn-IM1" secondAttribute="width" id="R30-Dj-bwO"/>
+                            <constraint firstAttribute="trailing" secondItem="j9a-Nn-IM1" secondAttribute="trailing" constant="6" id="8l9-hk-jxj"/>
                             <constraint firstItem="vLY-aM-0Dr" firstAttribute="top" secondItem="2zh-vR-QJW" secondAttribute="top" id="RiG-21-Bqc"/>
                             <constraint firstItem="j9a-Nn-IM1" firstAttribute="leading" secondItem="2zh-vR-QJW" secondAttribute="leading" id="UQc-cZ-kln"/>
-                            <constraint firstAttribute="trailing" secondItem="vLY-aM-0Dr" secondAttribute="trailing" constant="6" id="aVg-yy-8K7"/>
+                            <constraint firstAttribute="trailing" secondItem="vLY-aM-0Dr" secondAttribute="trailing" constant="50" id="aVg-yy-8K7"/>
                             <constraint firstAttribute="bottom" secondItem="j9a-Nn-IM1" secondAttribute="bottom" id="o7S-nY-ZL2"/>
+                            <constraint firstAttribute="trailing" secondItem="yqF-Rj-NHS" secondAttribute="trailing" constant="20" id="ozP-q6-Par"/>
+                            <constraint firstItem="yqF-Rj-NHS" firstAttribute="top" secondItem="2zh-vR-QJW" secondAttribute="top" constant="11" id="rM7-9e-Ykn"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X89-B1-aAd" userLabel="V(avatar)">
@@ -148,6 +161,7 @@
                 <outlet property="cellBottomLabelHeightContraint" destination="cPs-M4-tjX" id="yyh-7V-6do"/>
                 <outlet property="cellTopLabel" destination="jxM-YD-sVG" id="acH-pr-spx"/>
                 <outlet property="cellTopLabelHeightContraint" destination="9oK-E7-iXA" id="TaU-Wg-TP4"/>
+                <outlet property="favoriteBtn" destination="yqF-Rj-NHS" id="LAk-EF-8qy"/>
                 <outlet property="messageBubbleContainerView" destination="2zh-vR-QJW" id="pu0-GU-eZl"/>
                 <outlet property="messageBubbleLeftRightMarginConstraint" destination="tya-FG-SP6" id="3oJ-6X-GCK"/>
                 <outlet property="messageBubbleTopLabel" destination="p52-YN-yLu" id="SLH-sA-Chu"/>
