@@ -57,7 +57,13 @@
  *
  *  @return An initialized `JSQMessage` object or `nil` if the object could not be successfully initialized.
  */
-+ (instancetype)messageWithText:(NSString *)text sender:(NSString *)sender;
++ (instancetype)messageWithText:(NSString *)text
+                     sourceText:(NSString *)sourceText
+                     targetText:(NSString *)targetText
+                         sender:(NSString *)sender;
+
++ (instancetype)messageWithText:(NSString *)text
+                         sender:(NSString *)sender;
 
 /**
  *  Initializes and returns a message object having the given text, sender, and date.
@@ -68,6 +74,12 @@
  *
  *  @return An initialized `JSQMessage` object or `nil` if the object could not be successfully initialized.
  */
+- (instancetype)initWithText:(NSString *)text
+                  sourceText:(NSString *)sourceText
+                  targetText:(NSString *)targetText
+                      sender:(NSString *)sender
+                        date:(NSDate *)date;
+
 - (instancetype)initWithText:(NSString *)text
                       sender:(NSString *)sender
                         date:(NSDate *)date;

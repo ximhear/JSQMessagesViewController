@@ -22,12 +22,30 @@
 
 #pragma mark - Initialization
 
-+ (instancetype)messageWithText:(NSString *)text sender:(NSString *)sender
++ (instancetype)messageWithText:(NSString *)text
+                         sender:(NSString *)sender
 {
-    return [[JSQMessage alloc] initWithText:text sender:sender date:[NSDate date]];
+    return [[JSQMessage alloc] initWithText:text sourceText:text targetText:text sender:sender date:[NSDate date]];
+}
+
++ (instancetype)messageWithText:(NSString *)text
+                     sourceText:(NSString *)sourceText
+                     targetText:(NSString *)targetText
+                         sender:(NSString *)sender
+{
+    return [[JSQMessage alloc] initWithText:text sourceText:sourceText targetText:targetText sender:sender date:[NSDate date]];
 }
 
 - (instancetype)initWithText:(NSString *)text
+                      sender:(NSString *)sender
+                        date:(NSDate *)date
+{
+    return [self initWithText:text sourceText:text targetText:text sender:sender date:date];
+}
+
+- (instancetype)initWithText:(NSString *)text
+                  sourceText:(NSString *)sourceText
+                  targetText:(NSString *)targetText
                       sender:(NSString *)sender
                         date:(NSDate *)date
 {
@@ -40,6 +58,8 @@
         _text = text;
         _sender = sender;
         _date = date;
+        _sourceText = sourceText;
+        _targetText = targetText;
     }
     return self;
 }
@@ -49,6 +69,8 @@
     _text = nil;
     _sender = nil;
     _date = nil;
+    _sourceText = nil;
+    _targetText = nil;
 }
 
 #pragma mark - JSQMessage
@@ -57,7 +79,9 @@
 {
     return [self.text isEqualToString:aMessage.text]
             && [self.sender isEqualToString:aMessage.sender]
-            && ([self.date compare:aMessage.date] == NSOrderedSame);
+            && ([self.date compare:aMessage.date] == NSOrderedSame)
+    && [self.targetText isEqualToString:aMessage.targetText]
+    && [self.sourceText isEqualToString:aMessage.sourceText];
 }
 
 #pragma mark - NSObject
@@ -77,12 +101,12 @@
 
 - (NSUInteger)hash
 {
-    return [self.text hash] ^ [self.sender hash] ^ [self.date hash];
+    return [self.text hash] ^ [self.sender hash] ^ [self.date hash] ^ [self.sourceText hash] ^ [self.targetText hash];
 }
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"<%@>[ %@, %@, %@ ]", [self class], self.sender, self.date, self.text];
+    return [NSString stringWithFormat:@"<%@>[ %@, %@\n %@\n%@ ]", [self class], self.sender, self.date, self.sourceText, self.targetText];
 }
 
 #pragma mark - NSCoding
@@ -94,6 +118,8 @@
         _text = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(text))];
         _sender = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(sender))];
         _date = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(date))];
+        _sourceText = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(sourceText))];
+        _targetText = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(targetText))];
     }
     return self;
 }
@@ -103,6 +129,8 @@
     [aCoder encodeObject:self.text forKey:NSStringFromSelector(@selector(text))];
     [aCoder encodeObject:self.sender forKey:NSStringFromSelector(@selector(sender))];
     [aCoder encodeObject:self.date forKey:NSStringFromSelector(@selector(date))];
+    [aCoder encodeObject:self.sourceText forKey:NSStringFromSelector(@selector(sourceText))];
+    [aCoder encodeObject:self.targetText forKey:NSStringFromSelector(@selector(targetText))];
 }
 
 #pragma mark - NSCopying
@@ -110,6 +138,8 @@
 - (instancetype)copyWithZone:(NSZone *)zone
 {
     return [[[self class] allocWithZone:zone] initWithText:[self.text copy]
+                                                sourceText:[self.sourceText copy]
+                                                targetText:[self.targetText copy]
                                                     sender:[self.sender copy]
                                                       date:[self.date copy]];
 }

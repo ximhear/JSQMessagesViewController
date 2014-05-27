@@ -35,9 +35,11 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
      *
      *  You should have a mutable array or orderedSet, or something.
      */
-    JSQMessage* msg = [[JSQMessage alloc] initWithText:@"aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa" sender:self.sender date:[NSDate distantPast]];
-    msg.sourceText = @"안녕하세요";
-    msg.targetText = @"Hello";
+    JSQMessage* msg = [[JSQMessage alloc] initWithText:@"1"
+                                            sourceText:@"안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요1111"
+                                            targetText:@"HelloHe1111"
+                                                sender:self.sender
+                                                  date:[NSDate distantPast]];
     self.messages = [[NSMutableArray alloc] initWithObjects:
                      msg,
 //                     [[JSQMessage alloc] initWithText:@"BBB" sender:self.sender date:[NSDate distantPast]],
@@ -83,15 +85,6 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
         [self.messages addObjectsFromArray:copyOfMessages];
     }
     
-    /**
-     *  Change to YES to add a super long message for testing
-     *  You should see "END" twice
-     */
-    BOOL addREALLYLongMessage = NO;
-    if (addREALLYLongMessage) {
-        JSQMessage *reallyLongMessage = [JSQMessage messageWithText:@"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur? END Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur? END" sender:self.sender];
-        [self.messages addObject:reallyLongMessage];
-    }
 }
 
 
@@ -233,7 +226,13 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
      */
     [JSQSystemSoundPlayer jsq_playMessageSentSound];
     
-    JSQMessage *message = [[JSQMessage alloc] initWithText:text sender:sender date:date];
+    JSQMessage *message = [[JSQMessage alloc] initWithText:text
+                                                sourceText:text
+                                                targetText:text
+                                                    sender:sender
+                                                      date:date];
+    message.sourceText = text;
+    message.targetText = text;
     [self.messages addObject:message];
     
     [self finishSendingMessage];
