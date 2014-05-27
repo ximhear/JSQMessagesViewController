@@ -40,7 +40,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KYU-B8-cUW" userLabel="TV">
-                                <rect key="frame" x="50" y="0.0" width="194" height="44"/>
+                                <rect key="frame" x="6" y="0.0" width="194" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -87,7 +87,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BHE-hd-TfR" userLabel="B(favorite)">
-                                <rect key="frame" x="17" y="11" width="22" height="22"/>
+                                <rect key="frame" x="211" y="11" width="22" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="22" id="N08-Gt-82I"/>
@@ -100,15 +100,15 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="BHE-hd-TfR" firstAttribute="leading" secondItem="btS-p8-B7Z" secondAttribute="leading" constant="17" id="2kE-d9-UQ2"/>
-                            <constraint firstAttribute="trailing" secondItem="KYU-B8-cUW" secondAttribute="trailing" id="4qS-03-PFO"/>
+                            <constraint firstAttribute="trailing" secondItem="KYU-B8-cUW" secondAttribute="trailing" constant="44" id="4qS-03-PFO"/>
                             <constraint firstItem="EbV-IA-RMG" firstAttribute="leading" secondItem="btS-p8-B7Z" secondAttribute="leading" constant="6" id="Iad-CD-XQJ"/>
                             <constraint firstAttribute="bottom" secondItem="EbV-IA-RMG" secondAttribute="bottom" id="RJe-tW-7Vk"/>
                             <constraint firstAttribute="trailing" secondItem="EbV-IA-RMG" secondAttribute="trailing" id="Smz-cX-gxI"/>
                             <constraint firstItem="EbV-IA-RMG" firstAttribute="top" secondItem="KYU-B8-cUW" secondAttribute="bottom" id="T1L-ML-ZZf"/>
-                            <constraint firstItem="KYU-B8-cUW" firstAttribute="leading" secondItem="btS-p8-B7Z" secondAttribute="leading" constant="50" id="Tg9-9l-vr8"/>
+                            <constraint firstItem="BHE-hd-TfR" firstAttribute="top" secondItem="btS-p8-B7Z" secondAttribute="top" constant="11" id="T9w-kj-ha8"/>
+                            <constraint firstItem="KYU-B8-cUW" firstAttribute="leading" secondItem="btS-p8-B7Z" secondAttribute="leading" constant="6" id="Tg9-9l-vr8"/>
                             <constraint firstItem="KYU-B8-cUW" firstAttribute="top" secondItem="btS-p8-B7Z" secondAttribute="top" id="aEL-yH-N1p"/>
-                            <constraint firstItem="BHE-hd-TfR" firstAttribute="top" secondItem="btS-p8-B7Z" secondAttribute="top" constant="11" id="iHs-8F-Gku"/>
+                            <constraint firstAttribute="trailing" secondItem="BHE-hd-TfR" secondAttribute="trailing" constant="11" id="egQ-jR-Q8A"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Da1-09-wR4">

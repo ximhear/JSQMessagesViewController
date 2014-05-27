@@ -171,7 +171,9 @@
     
     self.textView.font = customAttributes.messageBubbleFont;
     self.messageBubbleLeftRightMarginConstraint.constant = customAttributes.messageBubbleLeftRightMargin;
+    /* gzonelee
     self.textViewFrameInsets = customAttributes.textViewFrameInsets;
+     */
     self.textView.textContainerInset = customAttributes.textViewTextContainerInsets;
     self.cellTopLabelHeightContraint.constant = customAttributes.cellTopLabelHeight;
     self.submenuViewHeightConstraint.constant = customAttributes.submenuViewHeight; // gzonelee
@@ -181,9 +183,15 @@
     
     if ([self isKindOfClass:[JSQMessagesCollectionViewCellIncoming class]]) {
         self.avatarViewSize = customAttributes.incomingAvatarViewSize;
+        
+        // gzonelee
+        self.textViewFrameInsets = UIEdgeInsetsMake(0.0f, 44.0f/*gzonelee*/, 0.0f, 6.0f);
     }
     else if ([self isKindOfClass:[JSQMessagesCollectionViewCellOutgoing class]]) {
         self.avatarViewSize = customAttributes.outgoingAvatarViewSize;
+
+        // gzonelee
+        self.textViewFrameInsets = UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 44/*gzonelee*/+6.0f);
     }
     
     [self setNeedsUpdateConstraints];

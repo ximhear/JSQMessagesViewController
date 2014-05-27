@@ -35,8 +35,11 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
      *
      *  You should have a mutable array or orderedSet, or something.
      */
+    JSQMessage* msg = [[JSQMessage alloc] initWithText:@"aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa" sender:self.sender date:[NSDate distantPast]];
+    msg.sourceText = @"안녕하세요";
+    msg.targetText = @"Hello";
     self.messages = [[NSMutableArray alloc] initWithObjects:
-                     [[JSQMessage alloc] initWithText:@"aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa" sender:self.sender date:[NSDate distantPast]],
+                     msg,
 //                     [[JSQMessage alloc] initWithText:@"BBB" sender:self.sender date:[NSDate distantPast]],
 //                     [[JSQMessage alloc] initWithText:@"BBB" sender:kJSQDemoAvatarNameWoz date:[NSDate distantPast]],
                      nil];
@@ -380,12 +383,12 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
     
     JSQMessage *msg = [self.messages objectAtIndex:indexPath.item];
     
-    if ([msg.sender isEqualToString:self.sender]) {
-        cell.textView.textColor = [UIColor blackColor];
-    }
-    else {
-        cell.textView.textColor = [UIColor whiteColor];
-    }
+//    if ([msg.sender isEqualToString:self.sender]) {
+//        cell.textView.textColor = [UIColor blackColor];
+//    }
+//    else {
+//        cell.textView.textColor = [UIColor whiteColor];
+//    }
     
     cell.textView.linkTextAttributes = @{ NSForegroundColorAttributeName : cell.textView.textColor,
                                           NSUnderlineStyleAttributeName : @(NSUnderlineStyleSingle | NSUnderlinePatternSolid) };

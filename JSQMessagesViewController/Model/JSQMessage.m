@@ -114,4 +114,14 @@
                                                       date:[self.date copy]];
 }
 
+-(NSAttributedString*)combinedText
+{
+    NSString* combinedStr = [NSString stringWithFormat:@"%@\n%@", self.sourceText, self.targetText];
+    NSMutableAttributedString* attributedStr = [[NSMutableAttributedString alloc] initWithString:combinedStr];
+    [attributedStr addAttribute:NSForegroundColorAttributeName value:[UIColor greenColor] range:NSMakeRange(0, [self.sourceText length])];
+    [attributedStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange([self.sourceText length]+1, [self.targetText length])];
+    [attributedStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:15] range:NSMakeRange(0, [combinedStr length])];
+    return attributedStr;
+}
+
 @end

@@ -47,4 +47,6 @@
  */
 - (NSDate *)date;
 
+-(NSAttributedString*)combinedText;
+
 @end
