@@ -408,7 +408,7 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
     [cell.messageBubbleContainerView addGestureRecognizer:tapGesture];
     
 //    cell.textView.text = messageText;
-    cell.textView.attributedText = [messageData combinedText];
+    cell.textView.attributedText = [messageData text];
     cell.messageBubbleImageView = [collectionView.dataSource collectionView:collectionView bubbleImageViewForItemAtIndexPath:indexPath];
     cell.avatarImageView = [collectionView.dataSource collectionView:collectionView avatarImageViewForItemAtIndexPath:indexPath];
     cell.cellTopLabel.attributedText = [collectionView.dataSource collectionView:collectionView attributedTextForCellTopLabelAtIndexPath:indexPath];

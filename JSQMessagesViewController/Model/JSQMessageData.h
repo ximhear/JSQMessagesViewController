@@ -33,7 +33,7 @@
  *  @return The body text of the message. 
  *  @warning You must not return `nil` from this method.
  */
-- (NSString *)text;
+- (NSAttributedString *)text;
 
 /**
  *  @return The name of the user who sent the message.
@@ -46,7 +46,5 @@
  *  @warning You must not return `nil` from this method.
  */
 - (NSDate *)date;
-
--(NSAttributedString*)combinedText;
 
 @end

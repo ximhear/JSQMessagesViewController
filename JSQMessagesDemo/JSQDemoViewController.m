@@ -35,11 +35,18 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
      *
      *  You should have a mutable array or orderedSet, or something.
      */
-    JSQMessage* msg = [[JSQMessage alloc] initWithText:@"1"
-                                            sourceText:@"안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요1111"
-                                            targetText:@"HelloHe1111"
-                                                sender:self.sender
-                                                  date:[NSDate distantPast]];
+    
+    NSDictionary* attributeDic = @{
+                                   @"sourceText":@{NSForegroundColorAttributeName:[UIColor greenColor],
+                                                   NSFontAttributeName:[UIFont systemFontOfSize:15]},
+                                   @"targetText":@{NSForegroundColorAttributeName:[UIColor redColor],
+                                                   NSFontAttributeName:[UIFont systemFontOfSize:15]}
+                                   };
+    JSQMessage* msg = [[JSQMessage alloc] initWithSourceText:@"안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요1111"
+                                                  targetText:@"HelloHe1111"
+                                                      sender:self.sender
+                                                        date:[NSDate distantPast]
+                                                  attributes:attributeDic];
     self.messages = [[NSMutableArray alloc] initWithObjects:
                      msg,
 //                     [[JSQMessage alloc] initWithText:@"BBB" sender:self.sender date:[NSDate distantPast]],
@@ -176,12 +183,26 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
      *  Show the tpying indicator
      */
     self.showTypingIndicator = !self.showTypingIndicator;
-    
+
+#if 0
     JSQMessage *copyMessage = [[self.messages lastObject] copy];
     
     if (!copyMessage) {
         return;
     }
+#else
+    NSDictionary* attributeDic = @{
+                                   @"sourceText":@{NSForegroundColorAttributeName:[UIColor cyanColor],
+                                                   NSFontAttributeName:[UIFont systemFontOfSize:20]},
+                                   @"targetText":@{NSForegroundColorAttributeName:[UIColor purpleColor],
+                                                   NSFontAttributeName:[UIFont systemFontOfSize:20]}
+                                   };
+    JSQMessage* copyMessage = [[JSQMessage alloc] initWithSourceText:@"Hello"
+                                                  targetText:@"안녕하시지요?"
+                                                      sender:self.sender
+                                                        date:[NSDate distantPast]
+                                                  attributes:attributeDic];
+#endif
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
@@ -226,13 +247,18 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
      */
     [JSQSystemSoundPlayer jsq_playMessageSentSound];
     
-    JSQMessage *message = [[JSQMessage alloc] initWithText:text
-                                                sourceText:text
-                                                targetText:text
-                                                    sender:sender
-                                                      date:date];
-    message.sourceText = text;
-    message.targetText = text;
+    NSDictionary* attributeDic = @{
+                                   @"sourceText":@{NSForegroundColorAttributeName:[UIColor greenColor],
+                                                   NSFontAttributeName:[UIFont systemFontOfSize:15]},
+                                   @"targetText":@{NSForegroundColorAttributeName:[UIColor redColor],
+                                                   NSFontAttributeName:[UIFont systemFontOfSize:15]}
+                                   };
+    
+    JSQMessage *message = [[JSQMessage alloc] initWithSourceText:text
+                                                      targetText:text
+                                                          sender:sender
+                                                            date:date
+                                                      attributes:attributeDic];
     [self.messages addObject:message];
     
     [self finishSendingMessage];

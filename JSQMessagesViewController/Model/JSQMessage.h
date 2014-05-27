@@ -30,7 +30,7 @@
 /**
  *  The body text of the message. This value must not be `nil`.
  */
-@property (copy, nonatomic) NSString *text;
+@property (copy, nonatomic) NSAttributedString *text;
 
 /**
  *  The name of user who sent the message. This value must not be `nil`.
@@ -43,8 +43,6 @@
 @property (copy, nonatomic) NSDate *date;
 
 // gzonelee
-@property (copy, nonatomic) NSString *sourceText;
-@property (copy, nonatomic) NSString *targetText;
 @property (assign, nonatomic) BOOL favorite;
 
 #pragma mark - Initialization
@@ -57,13 +55,10 @@
  *
  *  @return An initialized `JSQMessage` object or `nil` if the object could not be successfully initialized.
  */
-+ (instancetype)messageWithText:(NSString *)text
-                     sourceText:(NSString *)sourceText
-                     targetText:(NSString *)targetText
-                         sender:(NSString *)sender;
-
-+ (instancetype)messageWithText:(NSString *)text
-                         sender:(NSString *)sender;
++ (instancetype)messageWithSourceText:(NSString *)sourceText
+                           targetText:(NSString *)targetText
+                               sender:(NSString *)sender
+                           attributes:(NSDictionary*)attributeDic;
 
 /**
  *  Initializes and returns a message object having the given text, sender, and date.
@@ -74,15 +69,11 @@
  *
  *  @return An initialized `JSQMessage` object or `nil` if the object could not be successfully initialized.
  */
-- (instancetype)initWithText:(NSString *)text
-                  sourceText:(NSString *)sourceText
-                  targetText:(NSString *)targetText
-                      sender:(NSString *)sender
-                        date:(NSDate *)date;
-
-- (instancetype)initWithText:(NSString *)text
-                      sender:(NSString *)sender
-                        date:(NSDate *)date;
+- (instancetype)initWithSourceText:(NSString *)sourceText
+                        targetText:(NSString *)targetText
+                            sender:(NSString *)sender
+                              date:(NSDate *)date
+                        attributes:(NSDictionary*)attributeDic;
 
 /**
  *  Returns a boolean value that indicates whether a given message is equal to the receiver.

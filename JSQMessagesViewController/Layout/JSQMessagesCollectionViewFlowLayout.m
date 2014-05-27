@@ -342,7 +342,7 @@ const CGFloat kJSQMessagesCollectionViewCellLabelHeightDefault = 20.0f;
     CGFloat textInsetsTotal = [self jsq_messageBubbleTextContainerInsetsTotal];
 
 #if 1 // gzonelee
-    CGRect stringRect = [[messageData combinedText] boundingRectWithSize:CGSizeMake(maximumTextWidth - textInsetsTotal, CGFLOAT_MAX)
+    CGRect stringRect = [[messageData text] boundingRectWithSize:CGSizeMake(maximumTextWidth - textInsetsTotal, CGFLOAT_MAX)
                                  options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading)
                                  context:nil];
 #else

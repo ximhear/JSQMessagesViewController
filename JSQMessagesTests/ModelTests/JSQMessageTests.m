@@ -42,38 +42,5 @@
     [super tearDown];
 }
 
-- (void)testMessageInit
-{
-    JSQMessage *msg0 = [[JSQMessage alloc] initWithText:self.text sender:self.sender date:self.date];
-    XCTAssertNotNil(msg0, @"Message should not be nil");
-    
-    JSQMessage *msg1 = [JSQMessage messageWithText:self.text sender:self.sender];
-    XCTAssertNotNil(msg1, @"Message shold not be nil");
-    
-    XCTAssertThrows([JSQMessage messageWithText:nil sender:nil], @"Invalid init should throw");
-}
-
-- (void)testMessageIsEqual
-{
-    JSQMessage *msg = [JSQMessage messageWithText:self.text sender:self.sender];
-    JSQMessage *copy = [msg copy];
-    
-    XCTAssertEqualObjects(msg, copy, @"Copied messages should be equal");
-    XCTAssertEqual([msg hash], [copy hash], @"Copied messages hashes should be equal");
-    
-    XCTAssertTrue([msg isEqualToMessage:copy], @"Copied messages should be equal");
-    XCTAssertTrue([msg isEqualToMessage:msg], @"Messages should be equal to itself");
-    XCTAssertFalse([msg isEqualToMessage:nil], @"Initialized message should not be equal to nil");
-}
-
-- (void)testMessageArchiving
-{
-    JSQMessage *msg = [JSQMessage messageWithText:self.text sender:self.sender];
-    NSData *msgData = [NSKeyedArchiver archivedDataWithRootObject:msg];
-    
-    JSQMessage *unarchivedMsg = [NSKeyedUnarchiver unarchiveObjectWithData:msgData];
-    
-    XCTAssertTrue([msg isEqualToMessage:unarchivedMsg], @"Message should be equal");
-}
 
 @end
