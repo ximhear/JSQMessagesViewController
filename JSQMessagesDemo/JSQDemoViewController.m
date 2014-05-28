@@ -115,7 +115,7 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
     
     self.title = @"JSQMessages";
     
-    self.sender = @"Jesse Squires";
+    self.sender = @"me";
     
     [self setupTestModel];
     
@@ -173,6 +173,7 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
 
 - (void)receiveMessagePressed:(UIBarButtonItem *)sender
 {
+    GZLogFunc0();
     /**
      *  The following is simply to simulate received messages for the demo.
      *  Do not actually do this.

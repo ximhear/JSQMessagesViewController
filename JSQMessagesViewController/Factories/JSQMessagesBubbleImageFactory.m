@@ -41,13 +41,13 @@
 + (UIImageView *)outgoingMessageBubbleImageViewWithColor:(UIColor *)color
 {
     NSAssert(color, @"ERROR: color must not be nil: %s", __PRETTY_FUNCTION__);
-    return [JSQMessagesBubbleImageFactory bubbleImageViewWithColor:color flippedForIncoming:NO];
+    return [JSQMessagesBubbleImageFactory bubbleImageViewWithColor:color flippedForIncoming:YES];
 }
 
 + (UIImageView *)incomingMessageBubbleImageViewWithColor:(UIColor *)color
 {
     NSAssert(color, @"ERROR: color must not be nil: %s", __PRETTY_FUNCTION__);
-    return [JSQMessagesBubbleImageFactory bubbleImageViewWithColor:color flippedForIncoming:YES];
+    return [JSQMessagesBubbleImageFactory bubbleImageViewWithColor:color flippedForIncoming:NO];
 }
 
 #pragma mark - Private
