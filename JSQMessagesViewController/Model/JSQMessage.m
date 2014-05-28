@@ -46,23 +46,9 @@
         _text = [self combineWithSourceText:sourceText targetText:targetText attributes:attributeDic];
         _sender = sender;
         _date = date;
-    }
-    return self;
-}
-
-- (instancetype)initWithText:(NSAttributedString *)text
-                            sender:(NSString *)sender
-                              date:(NSDate *)date
-{
-    NSAssert(text, @"ERROR: text must not be nil: %s", __PRETTY_FUNCTION__);
-    NSAssert(sender, @"ERROR: sender must not be nil: %s", __PRETTY_FUNCTION__);
-    NSAssert(date, @"ERROR: date must not be nil: %s", __PRETTY_FUNCTION__);
-    
-    self = [super init];
-    if (self) {
-        _text = text;
-        _sender = sender;
-        _date = date;
+        _sourceText = sourceText;
+        _targetText = targetText;
+        _attributeDic = attributeDic;
     }
     return self;
 }
@@ -72,6 +58,8 @@
     _text = nil;
     _sender = nil;
     _date = nil;
+    _sourceText = nil;
+    _targetText = nil;
 }
 
 #pragma mark - JSQMessage
@@ -79,8 +67,8 @@
 - (BOOL)isEqualToMessage:(JSQMessage *)aMessage
 {
     return [self.text isEqualToAttributedString:aMessage.text]
-    && [self.sender isEqualToString:aMessage.sender]
-    && ([self.date compare:aMessage.date] == NSOrderedSame);
+            && [self.sender isEqualToString:aMessage.sender]
+            && ([self.date compare:aMessage.date] == NSOrderedSame);
 }
 
 #pragma mark - NSObject
@@ -117,6 +105,8 @@
         _text = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(text))];
         _sender = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(sender))];
         _date = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(date))];
+        _sourceText = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(sourceText))];
+        _targetText = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(targetText))];
     }
     return self;
 }
@@ -132,9 +122,7 @@
 
 - (instancetype)copyWithZone:(NSZone *)zone
 {
-    return [[[self class] allocWithZone:zone] initWithText:[self.text copy]
-                                                    sender:[self.sender copy]
-                                                      date:[self.date copy]];
+    return [[[self class] allocWithZone:zone] initWithSourceText:[self.sourceText copy] targetText:[self.targetText copy] sender:[self.sender copy] date:[self.date copy] attributes:[self.attributeDic copy]];
 }
 
 -(NSAttributedString*)combineWithSourceText:(NSString*)sourceText targetText:(NSString*)targetText attributes:(NSDictionary*)attributeDic

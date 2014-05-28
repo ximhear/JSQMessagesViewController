@@ -62,7 +62,7 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
      */
     CGFloat outgoingDiameter = self.collectionView.collectionViewLayout.outgoingAvatarViewSize.width;
     
-    UIImage *jsqImage = [JSQMessagesAvatarFactory avatarWithUserInitials:@"JSQ"
+    UIImage *jsqImage = [JSQMessagesAvatarFactory avatarWithUserInitials:@"Me"
                                                          backgroundColor:[UIColor colorWithWhite:0.85f alpha:1.0f]
                                                                textColor:[UIColor colorWithWhite:0.60f alpha:1.0f]
                                                                     font:[UIFont systemFontOfSize:14.0f]

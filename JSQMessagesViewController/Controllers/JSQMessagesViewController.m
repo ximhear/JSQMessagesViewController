@@ -386,13 +386,13 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
     NSString *messageSender = [messageData sender];
     NSAssert(messageSender, @"ERROR: messageData sender must not be nil: %s", __PRETTY_FUNCTION__);
     
-    BOOL isOutgoingMessage = [messageSender isEqualToString:self.sender];
+    BOOL isIncomingMessage = [messageSender isEqualToString:self.sender];
     
-    NSString *cellIdentifier = isOutgoingMessage==NO ? self.outgoingCellIdentifier : self.incomingCellIdentifier;
+    NSString *cellIdentifier = isIncomingMessage ? self.incomingCellIdentifier : self.outgoingCellIdentifier;
     JSQMessagesCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
     cell.delegate = self;
     
-    NSString *messageText = [messageData text];
+    NSAttributedString *messageText = [messageData text];
     NSAssert(messageText, @"ERROR: messageData text must not be nil: %s", __PRETTY_FUNCTION__);
     
     GZLogFunc1([cell.messageBubbleContainerView gestureRecognizers]);
@@ -408,35 +408,35 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
     [cell.messageBubbleContainerView addGestureRecognizer:tapGesture];
     
 //    cell.textView.text = messageText;
-    cell.textView.attributedText = [messageData text];
+    cell.textView.attributedText = messageText;
     cell.messageBubbleImageView = [collectionView.dataSource collectionView:collectionView bubbleImageViewForItemAtIndexPath:indexPath];
     cell.avatarImageView = [collectionView.dataSource collectionView:collectionView avatarImageViewForItemAtIndexPath:indexPath];
     cell.cellTopLabel.attributedText = [collectionView.dataSource collectionView:collectionView attributedTextForCellTopLabelAtIndexPath:indexPath];
     cell.messageBubbleTopLabel.attributedText = [collectionView.dataSource collectionView:collectionView attributedTextForMessageBubbleTopLabelAtIndexPath:indexPath];
     cell.cellBottomLabel.attributedText = [collectionView.dataSource collectionView:collectionView attributedTextForCellBottomLabelAtIndexPath:indexPath];
     
-    if (isOutgoingMessage==NO) {
-        cell.avatarImageView.bounds = CGRectMake(CGRectGetMinX(cell.avatarImageView.bounds),
-                                                 CGRectGetMinY(cell.avatarImageView.bounds),
-                                                 collectionView.collectionViewLayout.outgoingAvatarViewSize.width,
-                                                 collectionView.collectionViewLayout.outgoingAvatarViewSize.height);
-    }
-    else {
+    if (isIncomingMessage) {
         cell.avatarImageView.bounds = CGRectMake(CGRectGetMinX(cell.avatarImageView.bounds),
                                                  CGRectGetMinY(cell.avatarImageView.bounds),
                                                  collectionView.collectionViewLayout.incomingAvatarViewSize.width,
                                                  collectionView.collectionViewLayout.incomingAvatarViewSize.height);
+    }
+    else {
+        cell.avatarImageView.bounds = CGRectMake(CGRectGetMinX(cell.avatarImageView.bounds),
+                                                 CGRectGetMinY(cell.avatarImageView.bounds),
+                                                 collectionView.collectionViewLayout.outgoingAvatarViewSize.width,
+                                                 collectionView.collectionViewLayout.outgoingAvatarViewSize.height);
     }
     
     cell.backgroundColor = [UIColor clearColor];
     
     CGFloat bubbleTopLabelInset = 60.0f;
     
-    if (isOutgoingMessage==NO) {
-        cell.messageBubbleTopLabel.textInsets = UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, bubbleTopLabelInset);
+    if (isIncomingMessage) {
+        cell.messageBubbleTopLabel.textInsets = UIEdgeInsetsMake(0.0f, bubbleTopLabelInset, 0.0f, 0.0f);
     }
     else {
-        cell.messageBubbleTopLabel.textInsets = UIEdgeInsetsMake(0.0f, bubbleTopLabelInset, 0.0f, 0.0f);
+        cell.messageBubbleTopLabel.textInsets = UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, bubbleTopLabelInset);
     }
     
 //    cell.textView.dataDetectorTypes = UIDataDetectorTypeAll;

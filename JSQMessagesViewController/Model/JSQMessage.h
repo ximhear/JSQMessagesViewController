@@ -44,6 +44,9 @@
 
 // gzonelee
 @property (assign, nonatomic) BOOL favorite;
+@property (copy, nonatomic) NSString* sourceText;
+@property (copy, nonatomic) NSString* targetText;
+@property (strong, nonatomic) NSDictionary* attributeDic;
 
 #pragma mark - Initialization
 
