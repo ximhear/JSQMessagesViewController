@@ -23,14 +23,16 @@
 #pragma mark - Initialization
 
 + (instancetype)messageWithSourceText:(NSString *)sourceText
+                           sourceLang:(NSString *)sourceLang
                            targetText:(NSString *)targetText
                                sender:(NSString *)sender
                            attributes:(NSDictionary *)attributeDic
 {
-    return [[JSQMessage alloc] initWithSourceText:sourceText targetText:targetText sender:sender date:[NSDate date] attributes:attributeDic];
+    return [[JSQMessage alloc] initWithSourceText:sourceText sourceLang:sourceLang targetText:targetText sender:sender date:[NSDate date] attributes:attributeDic];
 }
 
 - (instancetype)initWithSourceText:(NSString *)sourceText
+                        sourceLang:(NSString *)sourceLang
                         targetText:(NSString *)targetText
                             sender:(NSString *)sender
                               date:(NSDate *)date
@@ -47,6 +49,7 @@
         _sender = sender;
         _date = date;
         _sourceText = sourceText;
+        _sourceLang = sourceLang;
         _targetText = targetText;
         _attributeDic = attributeDic;
     }
@@ -59,7 +62,9 @@
     _sender = nil;
     _date = nil;
     _sourceText = nil;
+    _sourceLang = nil;
     _targetText = nil;
+    _attributeDic = nil;
 }
 
 #pragma mark - JSQMessage
@@ -106,7 +111,9 @@
         _sender = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(sender))];
         _date = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(date))];
         _sourceText = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(sourceText))];
+        _sourceLang = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(sourceLang))];
         _targetText = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(targetText))];
+        _attributeDic = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(attributeDic))];
     }
     return self;
 }
@@ -116,13 +123,17 @@
     [aCoder encodeObject:self.text forKey:NSStringFromSelector(@selector(text))];
     [aCoder encodeObject:self.sender forKey:NSStringFromSelector(@selector(sender))];
     [aCoder encodeObject:self.date forKey:NSStringFromSelector(@selector(date))];
+    [aCoder encodeObject:self.sourceText forKey:NSStringFromSelector(@selector(sourceText))];
+    [aCoder encodeObject:self.sourceLang forKey:NSStringFromSelector(@selector(sourceLang))];
+    [aCoder encodeObject:self.targetText forKey:NSStringFromSelector(@selector(targetText))];
+    [aCoder encodeObject:self.attributeDic forKey:NSStringFromSelector(@selector(attributeDic))];
 }
 
 #pragma mark - NSCopying
 
 - (instancetype)copyWithZone:(NSZone *)zone
 {
-    return [[[self class] allocWithZone:zone] initWithSourceText:[self.sourceText copy] targetText:[self.targetText copy] sender:[self.sender copy] date:[self.date copy] attributes:[self.attributeDic copy]];
+    return [[[self class] allocWithZone:zone] initWithSourceText:[self.sourceText copy] sourceLang:[self.sourceLang copy] targetText:[self.targetText copy] sender:[self.sender copy] date:[self.date copy] attributes:[self.attributeDic copy]];
 }
 
 -(NSAttributedString*)combineWithSourceText:(NSString*)sourceText targetText:(NSString*)targetText attributes:(NSDictionary*)attributeDic

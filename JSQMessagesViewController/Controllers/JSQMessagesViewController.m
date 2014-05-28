@@ -204,6 +204,8 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
                                 options:nil];
     [self jsq_configureMessagesViewController];
     [self jsq_registerForNotifications:YES];
+    
+    self.inputToolbar.contentView.textView.placeHolder = @"번역할 문장을 입력하세요"; // gzonelee
 }
 
 - (void)viewWillAppear:(BOOL)animated

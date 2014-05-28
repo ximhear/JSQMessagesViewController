@@ -19,9 +19,9 @@
 #import "JSQDemoViewController.h"
 
 
-static NSString * const kJSQDemoAvatarNameCook = @"Tim Cook";
+//static NSString * const kJSQDemoAvatarNameCook = @"Tim Cook";
 static NSString * const kJSQDemoAvatarNameJobs = @"Jobs";
-static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
+//static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
 
 
 @implementation JSQDemoViewController
@@ -42,13 +42,20 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
                                    @"targetText":@{NSForegroundColorAttributeName:[UIColor redColor],
                                                    NSFontAttributeName:[UIFont systemFontOfSize:15]}
                                    };
-    JSQMessage* msg = [[JSQMessage alloc] initWithSourceText:@"안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요1111"
+    JSQMessage* msg = [[JSQMessage alloc] initWithSourceText:@"안녕하세요1111"
+                                                  sourceLang:@"ko"
                                                   targetText:@"HelloHe1111"
                                                       sender:self.sender
                                                         date:[NSDate distantPast]
                                                   attributes:attributeDic];
     self.messages = [[NSMutableArray alloc] initWithObjects:
                      msg,
+                     [[JSQMessage alloc] initWithSourceText:@"안녕하세요1111"
+                                                 sourceLang:@"ko"
+                                                 targetText:@"HelloHe1111"
+                                                     sender:self.sender
+                                                       date:[NSDate distantPast]
+                                                 attributes:attributeDic],
 //                     [[JSQMessage alloc] initWithText:@"BBB" sender:self.sender date:[NSDate distantPast]],
 //                     [[JSQMessage alloc] initWithText:@"BBB" sender:kJSQDemoAvatarNameWoz date:[NSDate distantPast]],
                      nil];
@@ -79,9 +86,7 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
     UIImage *wozImage = [JSQMessagesAvatarFactory avatarWithImage:[UIImage imageNamed:@"demo_avatar_woz"]
                                                          diameter:incomingDiameter];
     self.avatars = @{ self.sender : jsqImage,
-                      kJSQDemoAvatarNameCook : cookImage,
-                      kJSQDemoAvatarNameJobs : jobsImage,
-                      kJSQDemoAvatarNameWoz : wozImage };
+                      kJSQDemoAvatarNameJobs : jobsImage };
     
     /**
      *  Change to add more messages for testing
@@ -199,6 +204,7 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
                                                    NSFontAttributeName:[UIFont systemFontOfSize:20]}
                                    };
     JSQMessage* copyMessage = [[JSQMessage alloc] initWithSourceText:@"Hello"
+                                                          sourceLang:@"en"
                                                   targetText:@"안녕하시지요?"
                                                       sender:self.sender
                                                         date:[NSDate distantPast]
@@ -256,6 +262,7 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
                                    };
     
     JSQMessage *message = [[JSQMessage alloc] initWithSourceText:text
+                                                      sourceLang:@"ko"
                                                       targetText:text
                                                           sender:sender
                                                             date:date
@@ -357,6 +364,7 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
     /**
      *  iOS7-style sender name labels
      */
+#if 0 // gzonelee
     if ([message.sender isEqualToString:self.sender]) {
         return nil;
     }
@@ -372,6 +380,21 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
      *  Don't specify attributes to use the defaults.
      */
     return [[NSAttributedString alloc] initWithString:message.sender];
+#else
+    if (indexPath.item - 1 >= 0) {
+        JSQMessage *previousMessage = [self.messages objectAtIndex:indexPath.item - 1];
+        if ([[previousMessage sender] isEqualToString:message.sender] &&[previousMessage.sourceLang isEqualToString:message.sourceLang] == NO ) {
+            return [[NSAttributedString alloc] initWithString:message.sourceLang];
+        }
+        else if ([[previousMessage sender] isEqualToString:message.sender] == NO)
+        {
+            return [[NSAttributedString alloc] initWithString:message.sourceLang];
+        }
+        return nil;
+    }
+    return [[NSAttributedString alloc] initWithString:message.sourceLang];
+    
+#endif
 }
 
 - (NSAttributedString *)collectionView:(JSQMessagesCollectionView *)collectionView attributedTextForCellBottomLabelAtIndexPath:(NSIndexPath *)indexPath
@@ -481,10 +504,12 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
 - (CGFloat)collectionView:(JSQMessagesCollectionView *)collectionView
                    layout:(JSQMessagesCollectionViewFlowLayout *)collectionViewLayout heightForMessageBubbleTopLabelAtIndexPath:(NSIndexPath *)indexPath
 {
+    GZLogFunc1(indexPath);
     /**
      *  iOS7-style sender name labels
      */
     JSQMessage *currentMessage = [self.messages objectAtIndex:indexPath.item];
+#if 0 // gzonelee
     if ([[currentMessage sender] isEqualToString:self.sender]) {
         return 0.0f;
     }
@@ -495,8 +520,22 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
             return 0.0f;
         }
     }
-    
     return kJSQMessagesCollectionViewCellLabelHeightDefault;
+#else
+    if (indexPath.item - 1 >= 0) {
+        JSQMessage *previousMessage = [self.messages objectAtIndex:indexPath.item - 1];
+        if ([[previousMessage sender] isEqualToString:currentMessage.sender] &&[previousMessage.sourceLang isEqualToString:currentMessage.sourceLang] == NO ) {
+            return kJSQMessagesCollectionViewCellLabelHeightDefault;
+        }
+        else if ([[previousMessage sender] isEqualToString:currentMessage.sender] == NO)
+        {
+            return kJSQMessagesCollectionViewCellLabelHeightDefault;
+        }
+        return 0.0f;
+    }
+    return kJSQMessagesCollectionViewCellLabelHeightDefault;
+#endif
+    
 }
 
 - (CGFloat)collectionView:(JSQMessagesCollectionView *)collectionView

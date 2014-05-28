@@ -45,6 +45,7 @@
 // gzonelee
 @property (assign, nonatomic) BOOL favorite;
 @property (copy, nonatomic) NSString* sourceText;
+@property (copy, nonatomic) NSString* sourceLang;
 @property (copy, nonatomic) NSString* targetText;
 @property (strong, nonatomic) NSDictionary* attributeDic;
 
@@ -59,6 +60,7 @@
  *  @return An initialized `JSQMessage` object or `nil` if the object could not be successfully initialized.
  */
 + (instancetype)messageWithSourceText:(NSString *)sourceText
+                           sourceLang:(NSString *)sourceLang
                            targetText:(NSString *)targetText
                                sender:(NSString *)sender
                            attributes:(NSDictionary*)attributeDic;
@@ -73,6 +75,7 @@
  *  @return An initialized `JSQMessage` object or `nil` if the object could not be successfully initialized.
  */
 - (instancetype)initWithSourceText:(NSString *)sourceText
+                        sourceLang:(NSString *)sourceLang
                         targetText:(NSString *)targetText
                             sender:(NSString *)sender
                               date:(NSDate *)date

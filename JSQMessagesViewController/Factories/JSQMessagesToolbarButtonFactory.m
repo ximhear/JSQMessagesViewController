@@ -26,6 +26,7 @@
 
 + (UIButton *)defaultAccessoryButtonItem
 {
+#if 0 // gzonelee
     UIImage *cameraImage = [UIImage imageNamed:@"camera"];
     UIImage *cameraNormal = [cameraImage jsq_imageMaskedWithColor:[UIColor lightGrayColor]];
     UIImage *cameraHighlighted = [cameraImage jsq_imageMaskedWithColor:[UIColor darkGrayColor]];
@@ -39,6 +40,9 @@
     cameraButton.tintColor = [UIColor lightGrayColor];
     
     return cameraButton;
+#else
+    return nil;
+#endif
 }
 
 + (UIButton *)defaultSendButtonItem
