@@ -113,6 +113,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *submenuBtn3;
 @property (weak, nonatomic) IBOutlet UIButton *submenuBtn4;
 @property (weak, nonatomic) IBOutlet UIButton *favoriteBtn;
+@property (weak, nonatomic) IBOutlet UIImageView *dropDownImageView;
 
 
 #pragma mark - Class methods

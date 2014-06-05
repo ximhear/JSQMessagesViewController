@@ -45,7 +45,13 @@
 {
     [self setTranslatesAutoresizingMaskIntoConstraints:NO];
     
-    CGFloat cornerRadius = 6.0f;
+#if 1 // gzonelee
+    self.backgroundColor = [UIColor clearColor];
+    
+    self.textContainerInset = UIEdgeInsetsMake(4.0f, 2.0f, 4.0f, 2.0f);
+    self.contentInset = UIEdgeInsetsMake(2.0f, 0.0f, 2.0f, 0.0f);
+#else
+    CGFloat cornerRadius = 14.0f;
     
     self.backgroundColor = [UIColor whiteColor];
     self.layer.borderWidth = 0.5f;
@@ -56,6 +62,7 @@
     
     self.textContainerInset = UIEdgeInsetsMake(4.0f, 2.0f, 4.0f, 2.0f);
     self.contentInset = UIEdgeInsetsMake(2.0f, 0.0f, 2.0f, 0.0f);
+#endif
     
     self.scrollEnabled = YES;
     self.scrollsToTop = NO;

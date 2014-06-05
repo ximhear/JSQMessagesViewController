@@ -23,6 +23,7 @@
 #import "UIView+JSQMessages.h"
 
 const CGFloat kJSQMessagesToolbarContentViewHorizontalSpacingDefault = 4.0f;
+const CGFloat kJSQMessagesToolbarContentViewVerticalSpacingDefault = 6.0f;
 
 
 @interface JSQMessagesToolbarContentView ()
@@ -37,6 +38,8 @@ const CGFloat kJSQMessagesToolbarContentViewHorizontalSpacingDefault = 4.0f;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *leftHorizontalSpacingConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *rightHorizontalSpacingConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *rightTopSpacingConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *rightBottomSpacingConstraint;
 
 @end
 
@@ -66,6 +69,8 @@ const CGFloat kJSQMessagesToolbarContentViewHorizontalSpacingDefault = 4.0f;
     
     self.leftHorizontalSpacingConstraint.constant = kJSQMessagesToolbarContentViewHorizontalSpacingDefault;
     self.rightHorizontalSpacingConstraint.constant = kJSQMessagesToolbarContentViewHorizontalSpacingDefault;
+    self.rightTopSpacingConstraint.constant = kJSQMessagesToolbarContentViewVerticalSpacingDefault;
+    self.rightBottomSpacingConstraint.constant = kJSQMessagesToolbarContentViewVerticalSpacingDefault;
     
     self.leftBarButtonItem = nil;
     self.rightBarButtonItem = nil;
@@ -80,6 +85,8 @@ const CGFloat kJSQMessagesToolbarContentViewHorizontalSpacingDefault = 4.0f;
     _rightBarButtonItem = nil;
     _leftBarButtonContainerView = nil;
     _rightBarButtonContainerView = nil;
+    _rightTopSpacingConstraint = nil;
+    _rightBottomSpacingConstraint = nil;
 }
 
 #pragma mark - Setters
@@ -150,8 +157,12 @@ const CGFloat kJSQMessagesToolbarContentViewHorizontalSpacingDefault = 4.0f;
                                               CGRectGetHeight(self.rightBarButtonContainerView.frame));
     }
     
+    rightBarButtonItem.translatesAutoresizingMaskIntoConstraints = NO;
+    
     self.rightBarButtonContainerView.hidden = NO;
     self.rightHorizontalSpacingConstraint.constant = kJSQMessagesToolbarContentViewHorizontalSpacingDefault;
+    self.rightTopSpacingConstraint.constant = kJSQMessagesToolbarContentViewVerticalSpacingDefault;
+    self.rightBottomSpacingConstraint.constant = kJSQMessagesToolbarContentViewVerticalSpacingDefault;
     self.rightBarButtonItemWidth = CGRectGetWidth(rightBarButtonItem.frame);
     
     [self.rightBarButtonContainerView addSubview:rightBarButtonItem];

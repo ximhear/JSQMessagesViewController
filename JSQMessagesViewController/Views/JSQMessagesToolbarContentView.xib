@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -10,6 +10,19 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="text_input_bg.png" translatesAutoresizingMaskIntoConstraints="NO" id="Jk6-QP-F1r">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <rect key="contentStretch" x="0.0" y="0.999" width="1" height="0.001"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="568" id="0qM-gZ-s7L"/>
+                    </constraints>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="text_input.png" translatesAutoresizingMaskIntoConstraints="NO" id="NQJ-Ri-uzl">
+                    <rect key="frame" x="42" y="6" width="258" height="32"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <rect key="contentStretch" x="0.49990000000000001" y="0.49990000000000001" width="0.00020000000000000001" height="0.00020000000000000001"/>
+                </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LEq-G7-jGt">
                     <rect key="frame" x="4" y="6" width="34" height="32"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -24,30 +37,35 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="32" id="NaR-re-dJ4"/>
                         <constraint firstAttribute="width" constant="50" id="yde-S9-dHe"/>
                     </constraints>
                 </view>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dm4-NT-mvr" customClass="JSQMessagesComposerTextView">
-                    <rect key="frame" x="42" y="7" width="220" height="30"/>
+                    <rect key="frame" x="42" y="6" width="220" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstAttribute="trailing" secondItem="NQJ-Ri-uzl" secondAttribute="trailing" constant="20" id="6ao-Hh-6GT"/>
+                <constraint firstItem="Myo-1S-Vg1" firstAttribute="top" secondItem="1" secondAttribute="top" constant="6" id="B6O-i3-ceZ"/>
                 <constraint firstItem="LEq-G7-jGt" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="4" id="LAU-fo-GJJ"/>
+                <constraint firstAttribute="trailing" secondItem="Jk6-QP-F1r" secondAttribute="trailing" id="LVH-dg-a5H"/>
+                <constraint firstItem="NQJ-Ri-uzl" firstAttribute="bottom" secondItem="dm4-NT-mvr" secondAttribute="bottom" id="M7X-Bs-79a"/>
                 <constraint firstAttribute="bottom" secondItem="Myo-1S-Vg1" secondAttribute="bottom" constant="6" id="MrS-9f-xyz"/>
                 <constraint firstAttribute="bottom" secondItem="LEq-G7-jGt" secondAttribute="bottom" constant="6" id="OUX-jX-Hem"/>
+                <constraint firstItem="Jk6-QP-F1r" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="Q4W-id-bRA"/>
+                <constraint firstItem="NQJ-Ri-uzl" firstAttribute="leading" secondItem="dm4-NT-mvr" secondAttribute="leading" id="ZTF-lY-BDb"/>
+                <constraint firstItem="NQJ-Ri-uzl" firstAttribute="top" secondItem="dm4-NT-mvr" secondAttribute="top" id="ZWB-RM-z6M"/>
                 <constraint firstItem="dm4-NT-mvr" firstAttribute="leading" secondItem="LEq-G7-jGt" secondAttribute="trailing" constant="4" id="bel-3t-t11"/>
                 <constraint firstAttribute="trailing" secondItem="Myo-1S-Vg1" secondAttribute="trailing" constant="4" id="ds6-61-GNv"/>
+                <constraint firstItem="Jk6-QP-F1r" firstAttribute="top" secondItem="1" secondAttribute="top" id="gp6-eN-Ag6"/>
                 <constraint firstItem="dm4-NT-mvr" firstAttribute="leading" secondItem="LEq-G7-jGt" secondAttribute="trailing" constant="4" id="iAi-RG-Qmv"/>
-                <constraint firstItem="dm4-NT-mvr" firstAttribute="top" secondItem="1" secondAttribute="top" constant="7" id="nrs-7L-psn"/>
+                <constraint firstItem="dm4-NT-mvr" firstAttribute="top" secondItem="1" secondAttribute="top" constant="6" id="nrs-7L-psn"/>
                 <constraint firstItem="Myo-1S-Vg1" firstAttribute="leading" secondItem="dm4-NT-mvr" secondAttribute="trailing" constant="4" id="pv2-Ct-lcA"/>
-                <constraint firstAttribute="bottom" secondItem="dm4-NT-mvr" secondAttribute="bottom" constant="7" id="qgN-FG-QNm"/>
-                <constraint firstItem="Myo-1S-Vg1" firstAttribute="leading" secondItem="dm4-NT-mvr" secondAttribute="trailing" constant="4" id="uLl-Th-DGe"/>
+                <constraint firstAttribute="bottom" secondItem="dm4-NT-mvr" secondAttribute="bottom" constant="6" id="qgN-FG-QNm"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
@@ -56,9 +74,15 @@
                 <outlet property="leftHorizontalSpacingConstraint" destination="LAU-fo-GJJ" id="4zo-CQ-0sV"/>
                 <outlet property="rightBarButtonContainerView" destination="Myo-1S-Vg1" id="0SR-cw-EkD"/>
                 <outlet property="rightBarButtonContainerViewWidthConstraint" destination="yde-S9-dHe" id="oU1-07-P3e"/>
+                <outlet property="rightBottomSpacingConstraint" destination="MrS-9f-xyz" id="UJ5-Ih-2K8"/>
                 <outlet property="rightHorizontalSpacingConstraint" destination="ds6-61-GNv" id="qwC-Fa-kjV"/>
+                <outlet property="rightTopSpacingConstraint" destination="B6O-i3-ceZ" id="SPR-9v-azk"/>
                 <outlet property="textView" destination="dm4-NT-mvr" id="PFw-HO-oT8"/>
             </connections>
         </view>
     </objects>
+    <resources>
+        <image name="text_input.png" width="296" height="32"/>
+        <image name="text_input_bg.png" width="320" height="106"/>
+    </resources>
 </document>

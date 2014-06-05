@@ -102,7 +102,7 @@
     self.cellTopLabel.textColor = [UIColor lightGrayColor];
     
     self.messageBubbleTopLabel.font = [UIFont systemFontOfSize:12.0f];
-    self.messageBubbleTopLabel.textColor = [UIColor lightGrayColor];
+    self.messageBubbleTopLabel.textColor = [UIColor darkGrayColor]; // gzonelee
     
     self.cellBottomLabel.font = [UIFont systemFontOfSize:11.0f];
     self.cellBottomLabel.textColor = [UIColor lightGrayColor];
@@ -115,7 +115,7 @@
     self.textView.showsHorizontalScrollIndicator = NO;
     self.textView.showsVerticalScrollIndicator = NO;
     self.textView.scrollEnabled = NO;
-    self.textView.backgroundColor = [UIColor colorWithRed:1 green:0 blue:1 alpha:0.2];
+    self.textView.backgroundColor = [UIColor clearColor];
     self.textView.contentInset = UIEdgeInsetsZero;
     self.textView.scrollIndicatorInsets = UIEdgeInsetsZero;
     self.textView.contentOffset = CGPointZero;

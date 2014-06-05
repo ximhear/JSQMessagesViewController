@@ -19,19 +19,26 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="text_input_bg.png" translatesAutoresizingMaskIntoConstraints="NO" id="xVg-Hu-SRe">
+                    <rect key="frame" x="0.0" y="462" width="320" height="106"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="106" id="gdR-0b-jqk"/>
+                    </constraints>
+                </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mUa-cS-ru4" userLabel="V1">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="508"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="l9u-2b-4LK" userLabel="CollectionV" customClass="JSQMessagesCollectionView">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="508"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <collectionViewLayout key="collectionViewLayout" id="dZl-7C-LHR" customClass="JSQMessagesCollectionViewFlowLayout"/>
                             <cells/>
                         </collectionView>
                         <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BoD-Az-3DM" userLabel="InputToolbar" customClass="JSQMessagesInputToolbar">
-                            <rect key="frame" x="0.0" y="480" width="320" height="44"/>
+                            <rect key="frame" x="0.0" y="464" width="320" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="44" id="HIk-02-qcW"/>
@@ -51,23 +58,31 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZhA-X3-kWO">
-                    <rect key="frame" x="0.0" y="524" width="320" height="44"/>
+                    <rect key="frame" x="0.0" y="508" width="320" height="60"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" red="0.40000000600000002" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="EIN-wc-GVT"/>
+                    </constraints>
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="mUa-cS-ru4" secondAttribute="trailing" id="3Cw-CD-nZe"/>
                 <constraint firstItem="mUa-cS-ru4" firstAttribute="leading" secondItem="5Mt-3a-rj5" secondAttribute="leading" id="7vA-gS-aLX"/>
+                <constraint firstAttribute="trailing" secondItem="xVg-Hu-SRe" secondAttribute="trailing" id="AXO-Fq-t6L"/>
+                <constraint firstItem="xVg-Hu-SRe" firstAttribute="leading" secondItem="5Mt-3a-rj5" secondAttribute="leading" id="D97-We-FvI"/>
                 <constraint firstItem="ZhA-X3-kWO" firstAttribute="leading" secondItem="5Mt-3a-rj5" secondAttribute="leading" id="Gbz-Uu-uYH"/>
                 <constraint firstAttribute="trailing" secondItem="ZhA-X3-kWO" secondAttribute="trailing" id="IUh-Hd-Qy9"/>
-                <constraint firstAttribute="bottom" secondItem="mUa-cS-ru4" secondAttribute="bottom" constant="44" id="VYr-fB-rPj"/>
                 <constraint firstItem="mUa-cS-ru4" firstAttribute="top" secondItem="5Mt-3a-rj5" secondAttribute="top" id="YLn-jB-6UO"/>
-                <constraint firstAttribute="bottom" secondItem="ZhA-X3-kWO" secondAttribute="bottom" id="hrE-cw-Pmr"/>
+                <constraint firstAttribute="bottom" secondItem="ZhA-X3-kWO" secondAttribute="bottom" id="jFF-Lf-gaB"/>
                 <constraint firstItem="ZhA-X3-kWO" firstAttribute="top" secondItem="mUa-cS-ru4" secondAttribute="bottom" id="lOH-SN-jwa"/>
+                <constraint firstAttribute="bottom" secondItem="xVg-Hu-SRe" secondAttribute="bottom" id="sAJ-qq-CPX"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
         </view>
     </objects>
+    <resources>
+        <image name="text_input_bg.png" width="320" height="106"/>
+    </resources>
 </document>

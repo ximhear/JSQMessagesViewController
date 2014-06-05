@@ -443,16 +443,6 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
     
 //    cell.textView.dataDetectorTypes = UIDataDetectorTypeAll;
     
-//    if (_selectedIndexPath != nil && [_selectedIndexPath compare:indexPath] == NSOrderedSame) {
-//        cell.submenuViewHeightConstraint.constant = 50; // gzonelee
-//        [UIView animateWithDuration:1 animations:^{
-//            [cell.submenuView layoutIfNeeded];
-//        }];
-//    }
-//    else {
-//        cell.submenuViewHeightConstraint.constant = 0;
-//    }
-
     return cell;
 }
 
@@ -524,7 +514,6 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
     cellHeight += [self collectionView:collectionView layout:collectionViewLayout heightForMessageBubbleTopLabelAtIndexPath:indexPath];
     cellHeight += [self collectionView:collectionView layout:collectionViewLayout heightForCellBottomLabelAtIndexPath:indexPath];
     
-    GZLogFunc(@"cellHeight : %f", cellHeight);
     return CGSizeMake(collectionViewLayout.itemWidth, cellHeight);
 }
 
@@ -601,8 +590,6 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
 
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
-    GZLogFunc0();
-    
     [textView becomeFirstResponder];
     
     if (self.automaticallyScrollsToMostRecentMessage) {
@@ -765,7 +752,6 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
 
 - (void)jsq_scrollComposerTextViewToBottomAnimated:(BOOL)animated
 {
-    GZLogFunc0();
     UITextView *textView = self.inputToolbar.contentView.textView;
     CGPoint contentOffsetToShowLastLine = CGPointMake(0.0f, textView.contentSize.height - CGRectGetHeight(textView.bounds));
     
@@ -787,14 +773,12 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
 
 - (void)jsq_updateCollectionViewInsets
 {
-    GZLogFunc0();
     [self jsq_setCollectionViewInsetsTopValue:self.topLayoutGuide.length
                                   bottomValue:CGRectGetHeight(self.collectionView.frame) - CGRectGetMinY(self.inputToolbar.frame)];
 }
 
 - (void)jsq_setCollectionViewInsetsTopValue:(CGFloat)top bottomValue:(CGFloat)bottom
 {
-    GZLogFunc0();
     UIEdgeInsets insets = UIEdgeInsetsMake(top, 0.0f, bottom, 0.0f);
     self.collectionView.contentInset = insets;
     self.collectionView.scrollIndicatorInsets = insets;

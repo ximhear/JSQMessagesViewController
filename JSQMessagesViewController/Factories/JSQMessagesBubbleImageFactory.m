@@ -50,6 +50,18 @@
     return [JSQMessagesBubbleImageFactory bubbleImageViewWithColor:color flippedForIncoming:NO];
 }
 
++ (UIImageView *)outgoingMessageBubbleImageViewWithImage:(UIImage *)image
+{
+    NSAssert(image, @"ERROR: image must not be nil: %s", __PRETTY_FUNCTION__);
+    return [JSQMessagesBubbleImageFactory bubbleImageViewWithImage:image flippedForIncoming:NO];
+}
+
++ (UIImageView *)incomingMessageBubbleImageViewWithImage:(UIImage *)image
+{
+    NSAssert(image, @"ERROR: image must not be nil: %s", __PRETTY_FUNCTION__);
+    return [JSQMessagesBubbleImageFactory bubbleImageViewWithImage:image flippedForIncoming:NO];
+}
+
 #pragma mark - Private
 
 + (UIImageView *)bubbleImageViewWithColor:(UIColor *)color flippedForIncoming:(BOOL)flippedForIncoming
@@ -86,6 +98,30 @@
 + (UIImage *)jsq_stretchableImageFromImage:(UIImage *)image withCapInsets:(UIEdgeInsets)capInsets
 {
     return [image resizableImageWithCapInsets:capInsets resizingMode:UIImageResizingModeStretch];
+}
+
++ (UIImageView *)bubbleImageViewWithImage:(UIImage *)image flippedForIncoming:(BOOL)flippedForIncoming
+{
+    UIImage *bubble = image;
+    
+    UIImage *normalBubble = image;
+    UIImage *highlightedBubble = image;
+    
+    if (flippedForIncoming) {
+        normalBubble = [JSQMessagesBubbleImageFactory jsq_horizontallyFlippedImageFromImage:normalBubble];
+        highlightedBubble = [JSQMessagesBubbleImageFactory jsq_horizontallyFlippedImageFromImage:highlightedBubble];
+    }
+    
+    // make image stretchable from center point
+    CGPoint center = CGPointMake(bubble.size.width / 2.0f, bubble.size.height / 2.0f);
+    UIEdgeInsets capInsets = UIEdgeInsetsMake(center.y, center.x, center.y, center.x);
+    
+    normalBubble = [JSQMessagesBubbleImageFactory jsq_stretchableImageFromImage:normalBubble withCapInsets:capInsets];
+    highlightedBubble = [JSQMessagesBubbleImageFactory jsq_stretchableImageFromImage:highlightedBubble withCapInsets:capInsets];
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:normalBubble highlightedImage:highlightedBubble];
+    imageView.backgroundColor = [UIColor whiteColor];
+    return imageView;
 }
 
 @end
