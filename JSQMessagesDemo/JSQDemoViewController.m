@@ -204,18 +204,19 @@ static NSString * const kJSQDemoAvatarNameJobs = @"Jobs";
                                                    NSFontAttributeName:[UIFont systemFontOfSize:20]}
                                    };
     JSQMessage* copyMessage = [[JSQMessage alloc] initWithSourceText:@"Hello"
-                                                          sourceLang:@"en"
+                                                          sourceLang:@"system"
                                                   targetText:@"안녕하시지요?"
-                                                      sender:self.sender
-                                                        date:[NSDate distantPast]
-                                                  attributes:attributeDic];
+                                                      sender:@"system"
+                                                        date:[NSDate date]
+                                                  attributes:attributeDic
+                                                         optionalDic:@{@"usage": @"interpreter"}];
 #endif
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
         NSMutableArray *copyAvatars = [[self.avatars allKeys] mutableCopy];
         [copyAvatars removeObject:self.sender];
-        copyMessage.sender = [copyAvatars objectAtIndex:arc4random_uniform((int)[copyAvatars count])];
+//        copyMessage.sender = [copyAvatars objectAtIndex:arc4random_uniform((int)[copyAvatars count])];
         
         /**
          *  This you should do upon receiving a message:
@@ -453,6 +454,12 @@ static NSString * const kJSQDemoAvatarNameJobs = @"Jobs";
         [cell.submenuBtn3 addTarget:self action:@selector(cellExpand:) forControlEvents:UIControlEventTouchUpInside];
         [cell.submenuBtn4 addTarget:self action:@selector(cellSimilarSentence:) forControlEvents:UIControlEventTouchUpInside];
     }
+    else if ([msg.sender isEqualToString:@"system"]) {
+        [cell.submenuBtn1 removeTarget:nil action:NULL forControlEvents:UIControlEventTouchUpInside];
+        
+        cell.submenuBtn1.tag = indexPath.item;
+        [cell.submenuBtn1 addTarget:self action:@selector(usageClicked:) forControlEvents:UIControlEventTouchUpInside];
+    }
     
     return cell;
 }
@@ -477,6 +484,15 @@ static NSString * const kJSQDemoAvatarNameJobs = @"Jobs";
 -(IBAction)cellSimilarSentence:(id)sender
 {
     GZLogFunc0();
+}
+
+-(IBAction)usageClicked:(id)sender
+{
+    GZLogFunc0();
+    
+    int index = [sender tag];
+    JSQMessage* msg = self.messages[index];
+    GZLogFunc1(msg.optionalDic);
 }
 
 #pragma mark - JSQMessages collection view flow layout delegate
@@ -543,6 +559,22 @@ static NSString * const kJSQDemoAvatarNameJobs = @"Jobs";
 {
     
     return 0.0f;
+}
+
+- (CGFloat)collectionView:(JSQMessagesCollectionView *)collectionView
+                   layout:(JSQMessagesCollectionViewFlowLayout *)collectionViewLayout heightForSubmenuViewAtIndexPath:(NSIndexPath *)indexPath
+{
+    CGFloat height = 0;
+    if (self.selectedIndexPath != nil && [self.selectedIndexPath compare:indexPath] == NSOrderedSame) {
+        height = 50;
+    }
+    else {
+        JSQMessage *msg = self.messages[indexPath.item];
+        if ([msg.sender isEqualToString:@"system"]) {
+            height = 50;
+        }
+    }
+    return height;
 }
 
 - (void)collectionView:(JSQMessagesCollectionView *)collectionView

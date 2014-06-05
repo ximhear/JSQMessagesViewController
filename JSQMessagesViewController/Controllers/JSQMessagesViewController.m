@@ -25,6 +25,7 @@
 
 #import "JSQMessagesCollectionViewCellIncoming.h"
 #import "JSQMessagesCollectionViewCellOutgoing.h"
+#import "JSQMessagesCollectionViewCellOutgoingSystem.h"
 
 #import "JSQMessagesTypingIndicatorFooterView.h"
 #import "JSQMessagesLoadEarlierHeaderView.h"
@@ -129,6 +130,7 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
     
     self.outgoingCellIdentifier = [JSQMessagesCollectionViewCellOutgoing cellReuseIdentifier];
     self.incomingCellIdentifier = [JSQMessagesCollectionViewCellIncoming cellReuseIdentifier];
+    self.outgoingSystemCellIdentifier = [JSQMessagesCollectionViewCellOutgoingSystem cellReuseIdentifier];
     
     self.typingIndicatorColor = [UIColor jsq_messageBubbleLightGrayColor];
     self.showTypingIndicator = NO;
@@ -380,7 +382,7 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
 
 - (UICollectionViewCell *)collectionView:(JSQMessagesCollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    GZLogFunc0();
+    GZLogFunc1(indexPath);
     
     id<JSQMessageData> messageData = [collectionView.dataSource collectionView:collectionView messageDataForItemAtIndexPath:indexPath];
     NSAssert(messageData, @"ERROR: messageData must not be nil: %s", __PRETTY_FUNCTION__);
@@ -389,8 +391,21 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
     NSAssert(messageSender, @"ERROR: messageData sender must not be nil: %s", __PRETTY_FUNCTION__);
     
     BOOL isIncomingMessage = [messageSender isEqualToString:self.sender];
+    BOOL isSystemMessage = [messageSender isEqualToString:@"system"];
     
-    NSString *cellIdentifier = isIncomingMessage ? self.incomingCellIdentifier : self.outgoingCellIdentifier;
+    NSString *cellIdentifier;
+    if (isIncomingMessage) {
+        cellIdentifier = self.incomingCellIdentifier;
+    }
+    else {
+        if (isSystemMessage) {
+            cellIdentifier = self.outgoingSystemCellIdentifier;
+        }
+        else {
+            cellIdentifier = self.outgoingCellIdentifier;
+        }
+    }
+    
     JSQMessagesCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
     cell.delegate = self;
     
@@ -513,6 +528,7 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
     cellHeight += [self collectionView:collectionView layout:collectionViewLayout heightForCellTopLabelAtIndexPath:indexPath];
     cellHeight += [self collectionView:collectionView layout:collectionViewLayout heightForMessageBubbleTopLabelAtIndexPath:indexPath];
     cellHeight += [self collectionView:collectionView layout:collectionViewLayout heightForCellBottomLabelAtIndexPath:indexPath];
+    cellHeight += [self collectionView:collectionView layout:collectionViewLayout heightForSubmenuViewAtIndexPath:indexPath];
     
     return CGSizeMake(collectionViewLayout.itemWidth, cellHeight);
 }
@@ -880,6 +896,11 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
     if (_selectedIndexPath != nil && [[sender view] tag] == _selectedIndexPath.row) {
         return;
     }
+    id<JSQMessageData> msg = [self collectionView:self.collectionView messageDataForItemAtIndexPath:[NSIndexPath indexPathForItem:[[sender view] tag] inSection:0]];
+    if ([[msg sender] isEqualToString:@"system"]) {
+        return;
+    }
+    
     
     [self changeSelectedIndexPath:[NSIndexPath indexPathForRow:[[sender view] tag] inSection:0]];
 }

@@ -48,6 +48,7 @@
 @property (copy, nonatomic) NSString* sourceLang;
 @property (copy, nonatomic) NSString* targetText;
 @property (strong, nonatomic) NSDictionary* attributeDic;
+@property (strong, nonatomic) NSDictionary* optionalDic;
 
 #pragma mark - Initialization
 
@@ -80,6 +81,14 @@
                             sender:(NSString *)sender
                               date:(NSDate *)date
                         attributes:(NSDictionary*)attributeDic;
+
+- (instancetype)initWithSourceText:(NSString *)sourceText
+                        sourceLang:(NSString *)sourceLang
+                        targetText:(NSString *)targetText
+                            sender:(NSString *)sender
+                              date:(NSDate *)date
+                        attributes:(NSDictionary *)attributeDic
+                       optionalDic:(NSDictionary*)optionalDic;
 
 /**
  *  Returns a boolean value that indicates whether a given message is equal to the receiver.

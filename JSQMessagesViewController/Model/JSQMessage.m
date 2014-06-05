@@ -56,6 +56,33 @@
     return self;
 }
 
+- (instancetype)initWithSourceText:(NSString *)sourceText
+                        sourceLang:(NSString *)sourceLang
+                        targetText:(NSString *)targetText
+                            sender:(NSString *)sender
+                              date:(NSDate *)date
+                        attributes:(NSDictionary *)attributeDic
+                       optionalDic:(NSDictionary*)optionalDic
+{
+    NSAssert(sourceText, @"ERROR: sourceText must not be nil: %s", __PRETTY_FUNCTION__);
+    NSAssert(targetText, @"ERROR: targetText must not be nil: %s", __PRETTY_FUNCTION__);
+    NSAssert(sender, @"ERROR: sender must not be nil: %s", __PRETTY_FUNCTION__);
+    NSAssert(date, @"ERROR: date must not be nil: %s", __PRETTY_FUNCTION__);
+    
+    self = [super init];
+    if (self) {
+        _text = [self combineWithSourceText:sourceText targetText:targetText attributes:attributeDic];
+        _sender = sender;
+        _date = date;
+        _sourceText = sourceText;
+        _sourceLang = sourceLang;
+        _targetText = targetText;
+        _attributeDic = attributeDic;
+        _optionalDic = optionalDic;
+    }
+    return self;
+}
+
 - (void)dealloc
 {
     _text = nil;
@@ -65,6 +92,7 @@
     _sourceLang = nil;
     _targetText = nil;
     _attributeDic = nil;
+    _optionalDic = nil;
 }
 
 #pragma mark - JSQMessage
@@ -114,6 +142,7 @@
         _sourceLang = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(sourceLang))];
         _targetText = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(targetText))];
         _attributeDic = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(attributeDic))];
+        _optionalDic = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(optionalDic))];
     }
     return self;
 }
@@ -127,18 +156,25 @@
     [aCoder encodeObject:self.sourceLang forKey:NSStringFromSelector(@selector(sourceLang))];
     [aCoder encodeObject:self.targetText forKey:NSStringFromSelector(@selector(targetText))];
     [aCoder encodeObject:self.attributeDic forKey:NSStringFromSelector(@selector(attributeDic))];
+    [aCoder encodeObject:self.optionalDic forKey:NSStringFromSelector(@selector(optionalDic))];
 }
 
 #pragma mark - NSCopying
 
 - (instancetype)copyWithZone:(NSZone *)zone
 {
-    return [[[self class] allocWithZone:zone] initWithSourceText:[self.sourceText copy] sourceLang:[self.sourceLang copy] targetText:[self.targetText copy] sender:[self.sender copy] date:[self.date copy] attributes:[self.attributeDic copy]];
+    return [[[self class] allocWithZone:zone] initWithSourceText:[self.sourceText copy] sourceLang:[self.sourceLang copy] targetText:[self.targetText copy] sender:[self.sender copy] date:[self.date copy] attributes:[self.attributeDic copy] optionalDic:[self.optionalDic copy]];
 }
 
 -(NSAttributedString*)combineWithSourceText:(NSString*)sourceText targetText:(NSString*)targetText attributes:(NSDictionary*)attributeDic
 {
-    NSString* combinedStr = [NSString stringWithFormat:@"%@\n%@", sourceText, targetText];
+    NSString* combinedStr;
+    if (targetText == nil) {
+        combinedStr = [sourceText copy];
+    }
+    else {
+        combinedStr = [NSString stringWithFormat:@"%@\n%@", sourceText, targetText];
+    }
     NSMutableAttributedString* attributedStr = [[NSMutableAttributedString alloc] initWithString:combinedStr];
     
     NSRange sourceTange = NSMakeRange(0, [sourceText length]);

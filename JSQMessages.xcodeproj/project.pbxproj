@@ -92,6 +92,10 @@
 		88D1B0C9190604AF00AFE162 /* JSQMessagesTypingIndicatorFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88D1B0C8190604AF00AFE162 /* JSQMessagesTypingIndicatorFooterView.xib */; };
 		88D1B0CC190606F100AFE162 /* typing.png in Resources */ = {isa = PBXBuildFile; fileRef = 88D1B0CA190606F100AFE162 /* typing.png */; };
 		88D1B0CD190606F100AFE162 /* typing@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 88D1B0CB190606F100AFE162 /* typing@2x.png */; };
+		8C503241193FF90C0060F813 /* JSQMessagesCollectionViewCellOutgoingSystem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C503240193FF90C0060F813 /* JSQMessagesCollectionViewCellOutgoingSystem.xib */; };
+		8C503244193FF95C0060F813 /* JSQMessagesCollectionViewCellOutgoingSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C503243193FF95C0060F813 /* JSQMessagesCollectionViewCellOutgoingSystem.m */; };
+		8C50325D193FFCBD0060F813 /* text_bubble_info_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C50325B193FFCBD0060F813 /* text_bubble_info_normal@2x.png */; };
+		8C50325E193FFCBD0060F813 /* text_bubble_info_pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C50325C193FFCBD0060F813 /* text_bubble_info_pressed@2x.png */; };
 		C78CEF093F584B85B4321C83 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 343577012CC24261BE4B61A1 /* libPods.a */; };
 		D68A9FB68FC5463D9A5B23E0 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 343577012CC24261BE4B61A1 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -225,6 +229,11 @@
 		88D1B0CA190606F100AFE162 /* typing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = typing.png; sourceTree = "<group>"; };
 		88D1B0CB190606F100AFE162 /* typing@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "typing@2x.png"; sourceTree = "<group>"; };
 		8C43D2CF19273C8900DF3EC0 /* GZLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GZLog.h; sourceTree = "<group>"; };
+		8C503240193FF90C0060F813 /* JSQMessagesCollectionViewCellOutgoingSystem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JSQMessagesCollectionViewCellOutgoingSystem.xib; sourceTree = "<group>"; };
+		8C503242193FF95C0060F813 /* JSQMessagesCollectionViewCellOutgoingSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSQMessagesCollectionViewCellOutgoingSystem.h; sourceTree = "<group>"; };
+		8C503243193FF95C0060F813 /* JSQMessagesCollectionViewCellOutgoingSystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSQMessagesCollectionViewCellOutgoingSystem.m; sourceTree = "<group>"; };
+		8C50325B193FFCBD0060F813 /* text_bubble_info_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "text_bubble_info_normal@2x.png"; sourceTree = "<group>"; };
+		8C50325C193FFCBD0060F813 /* text_bubble_info_pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "text_bubble_info_pressed@2x.png"; sourceTree = "<group>"; };
 		A0F1B1EFE54F44FEA6C4F786 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -284,6 +293,8 @@
 		8816A64818E9250400111919 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				8C50325B193FFCBD0060F813 /* text_bubble_info_normal@2x.png */,
+				8C50325C193FFCBD0060F813 /* text_bubble_info_pressed@2x.png */,
 				8816A64918E9250400111919 /* bubble.png */,
 				8816A64A18E9250400111919 /* bubble@2x.png */,
 				8816A64B18E9250400111919 /* bubble_min.png */,
@@ -381,6 +392,9 @@
 		8816A67C18E9250400111919 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				8C503242193FF95C0060F813 /* JSQMessagesCollectionViewCellOutgoingSystem.h */,
+				8C503243193FF95C0060F813 /* JSQMessagesCollectionViewCellOutgoingSystem.m */,
+				8C503240193FF90C0060F813 /* JSQMessagesCollectionViewCellOutgoingSystem.xib */,
 				8816A67D18E9250400111919 /* JSQMessagesCollectionView.h */,
 				8816A67E18E9250400111919 /* JSQMessagesCollectionView.m */,
 				8816A67F18E9250400111919 /* JSQMessagesCollectionViewCell.h */,
@@ -653,13 +667,16 @@
 				8816A69218E9250400111919 /* bubble_min.png in Resources */,
 				8816A69C18E9250400111919 /* camera.png in Resources */,
 				8816A6B118E9250400111919 /* JSQMessagesCollectionViewCellIncoming.xib in Resources */,
+				8C503241193FF90C0060F813 /* JSQMessagesCollectionViewCellOutgoingSystem.xib in Resources */,
 				8816A69118E9250400111919 /* bubble@2x.png in Resources */,
+				8C50325E193FFCBD0060F813 /* text_bubble_info_pressed@2x.png in Resources */,
 				8816A69018E9250400111919 /* bubble.png in Resources */,
 				8816A69918E9250400111919 /* bubble_stroked_tailless@2x.png in Resources */,
 				88BC4D35190C6086002E5CC6 /* JSQMessagesLoadEarlierHeaderView.xib in Resources */,
 				8816A69B18E9250400111919 /* bubble_tailless@2x.png in Resources */,
 				88D1B0C9190604AF00AFE162 /* JSQMessagesTypingIndicatorFooterView.xib in Resources */,
 				8816A6B818E9250400111919 /* JSQMessagesToolbarContentView.xib in Resources */,
+				8C50325D193FFCBD0060F813 /* text_bubble_info_normal@2x.png in Resources */,
 				8816A69F18E9250400111919 /* message_sent.aiff in Resources */,
 				8816A69518E9250400111919 /* bubble_min_tailless@2x.png in Resources */,
 				8816A69A18E9250400111919 /* bubble_tailless.png in Resources */,
@@ -752,6 +769,7 @@
 			files = (
 				8816A6A218E9250400111919 /* UIColor+JSQMessages.m in Sources */,
 				8816A6A518E9250400111919 /* JSQMessagesViewController.m in Sources */,
+				8C503244193FF95C0060F813 /* JSQMessagesCollectionViewCellOutgoingSystem.m in Sources */,
 				8816A6B718E9250400111919 /* JSQMessagesToolbarContentView.m in Sources */,
 				885D596A18CBD2A600D77BB3 /* JSQAppDelegate.m in Sources */,
 				8816A6AE18E9250400111919 /* JSQMessagesCollectionView.m in Sources */,
